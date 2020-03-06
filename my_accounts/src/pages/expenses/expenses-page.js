@@ -8,7 +8,7 @@ export default class ExpensesPage extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            userid : 12,
+            id : 12,
             expense: [],
             redirect: false,
         } 
@@ -18,9 +18,9 @@ export default class ExpensesPage extends React.Component{
     
     componentDidMount(){
 
-        axios.get('http://localhost:6000/expenses/', {
+        axios.get('http://localhost:5000/expenses/', {
             params: {
-                userid: this.state.userid,
+                id: this.state.id,
             }
         })
         .then(res => {

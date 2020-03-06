@@ -39,6 +39,6 @@ const expenses = require("./routes/expenses.js")(app);
 
 
 //listening port
-app.listen(6000,()=>{
-    console.log("Express is working on port 6000");
+app.listen(5000,()=>{
+    console.log("Express is working on port 5000");
 });

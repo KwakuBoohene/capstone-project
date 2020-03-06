@@ -2,9 +2,9 @@ module.exports = app =>{
 const database = require("../database/db.js");
 
 //get all the users
-    app.get('/expenses/:user_id', function (req, res) {
+    app.get('/expenses/:id', function (req, res) {
 
-    database.query('SELECT * FROM expenses where user_id = ?',[req.params.user_id],
+    database.query('SELECT * FROM expenses where user_id = ?',[req.params.id],
     function (error, results, fields) {
         if (error) throw error;
         res.end(JSON.stringify(results));
