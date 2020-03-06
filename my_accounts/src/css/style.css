@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,200,300,800&display=swap");
+
+h1,h2,h3,h4,h5,h6{
+    font-family: Montserrat;
+	font-style: bold;
+	font-weight: 800 !important; 
+}
+
+body,p,html, .auth-wrapper, .App, #root{
+    margin: 0; 
+	font-family: Montserrat;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+h1{
+    font-size: 43px;
+}
+
+/*LANDING PAGE CSS */
+
+.header{
+    color: #dc3545;
+    padding-top: 5px;
+    background-color: #3f3f3f;
+}
+
+.header-icon{
+     color: #dc3545;
+    text-decoration: none;
+  
+}
+
+.header-icon:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.header-links{
+    color: #dc3545;
+    text-decoration: none;
+}
+
+.header-links:hover{
+    color: #ffffff;
+}
+
+
+
+.landing-middle{
+    background-image: url("../images/landing-middle-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+
+.landing-upper-bottom{
+    margin-top: 3%;
+}
+
+.landing-lower-bottom{
+    margin-left:20px;
+}
+
+.app-features{
+    grid-column-gap: 3%;
+}
+
+.landing-icon{
+    height:50px;
+    width: 50px;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer{
+    display: block;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.sidenav{
+    height: 92vh;
+}
+.sidenav, .sidenav ul , .sidenav ul li{
+    background-color: #878787;
+    color: #ffffff;
+}
+
+.sidenav ul li a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.sidenav ul li a:hover{
+    text-decoration: none;
+    color : #000000;
+}
+
+.homepage-main{
+    padding-top: 2vh;
+    padding-left: 20px;
+    margin-left:21  e 10px;
+}
+
+#homepage-grid-item{
+    margin-right:2vh;
+    margin-bottom: 2vh;
+}
+
+/*CSS for the expenses Page */
+
+
+#center-text{
+    margin-top: 25%;
+
+}
+
+/*CSS for login modal */
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
