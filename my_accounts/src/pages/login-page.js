@@ -11,6 +11,7 @@ export default class LoginPage extends React.Component{
             email: '',
             password: '',
             redirect: false,
+            message: "invalid input details",
 
         };
         this.onLogin = this.onLogin.bind(this);
@@ -21,13 +22,28 @@ export default class LoginPage extends React.Component{
 
 //logs in user details 
 checkFormData(){
-let formData = new FormData();
-formData.append('email', this.state.email)
-formData.append('password',this.state.password)
+// let formData = new FormData();
+// formData.append('email', this.state.email)
+// formData.append('password',this.state.password)
 axios
-    .post('http://localhost:5000/user',formData)
+    .post('http://localhost:5000/user-search',
+    {
+        'email':this.state.email,
+        'password': this.state.password
+    })
     .then(res =>{
-        alert(res.data);
+        const returnData = Object.keys(res.data).length;
+        console.log(returnData);
+        if(returnData==0){
+            this.setState({
+                message :"User's email or password is invalid"
+            });
+            this.modalOpen();
+        }else{
+            this.setState({
+                redirect :true,
+            });
+        }
     })
     .catch(error =>{
         alert(error);
@@ -42,24 +58,26 @@ Change = e => {
 };
 
 validation(){
-    if(this.state.email==='' || this.state.password===''){
+    if(this.state.email==''){
+        this.setState({message : "Please type your email in the required field"});
+        this.modalOpen();
         return false;
     }else{
-        return true;
+        if(this.state.password==''){
+         this.setState({message : "Please type your password in the required field"});
+         this.modalOpen();
+         return false;   
+        }else{
+            return true;
+        }
     }
 }
     
 onLogin = e => {
-     var response = this.validation();
-     console.log(response);
-     if(response==true){
-         e.preventDefault();
-         this.checkFormData();
-         this.setState({redirect:true});
-     }else{
-         this.modalOpen()
-         e.preventDefault();
-         this.setState({redirect:false});
+     
+     if(this.validation()){
+         console.log("valid");
+          this.checkFormData();
      }
     
 }
@@ -111,7 +129,7 @@ modalClose = e => {
                                 </div>
                             </div>
 
-                           <button type="submit" className="btn btn-danger btn-block" onClick = {this.checkFormData} > Login</button>
+                           <button type="button" className="btn btn-danger btn-block" onClick = {this.onLogin} > Login</button>
 
                             
                             <p className="forgot-password text-right">
@@ -126,7 +144,7 @@ modalClose = e => {
 
 
 
-            <Modal message="invalid input details"/>
+            <Modal message={this.state.message}/>
                 
 
             {this.state.redirect?<Redirect to="./home"/>:null}

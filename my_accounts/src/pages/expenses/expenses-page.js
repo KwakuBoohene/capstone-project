@@ -18,11 +18,13 @@ export default class ExpensesPage extends React.Component{
     
     componentDidMount(){
 
-        axios.get('http://localhost:5000/expenses/', {
-            params: {
-                id: this.state.id,
-            }
-        })
+        axios.get('http://localhost:5000/expenses/' + String(this.state.id)
+        // , {
+        //     params: {
+        //         id: this.state.id,
+        //     }
+        // }
+        )
         .then(res => {
         const expense = res.data;
         this.setState({ expense });
@@ -62,7 +64,7 @@ export default class ExpensesPage extends React.Component{
                                                 <tr>
                                                     <td>{expense.expense_name}</td>
                                                     <td> GHS {expense.amount}.00</td>
-                                                    <td>{expense.date_recorded}</td>
+                                                    <td>{expense.date}</td>
                                                 </tr>
                                                 )
                                             }

@@ -12,6 +12,7 @@ export default class AddExpenses extends React.Component{
             amount : "",
             date : "",
             redirect: false,
+            userid: 12,
         };
         this.Change = this.Change.bind(this);
         this.addFormData = this.addFormData.bind(this);
@@ -34,23 +35,26 @@ export default class AddExpenses extends React.Component{
     }
 
         addFormData(){
-        let formData = new FormData();
-        formData.append('expense_name', this.state.ename)
-        formData.append('amount', this.state.amount)
-        formData.append('date_recorded', this.state.date)
-        formData.append('user_id', 12)
-
         axios
-            .post('http://myaccounts/api/expenses/add',formData)
+            
+            .post('http://localhost:5000/expenses/add',
+            {
+                'ename':this.state.ename,
+                'amount':this.state.amount,
+                'date':this.state.date,
+                'userid':this.state.userid,
+            })
             .then(response =>{
-                alert(this.state.date);
+                console.log(response);
                 alert('expense added');
                 this.setState({redirect: true})
                 
             })
             .catch(error =>{
+                console.log(error);
                 alert(error);
             })
+
 
     }
 
@@ -58,6 +62,8 @@ export default class AddExpenses extends React.Component{
         this.setState({
         [e.target.name]: e.target.value
         });
+        var item = e.target.name;
+        console.log(this.state);
     };
 
     validate = e => {
@@ -94,7 +100,7 @@ export default class AddExpenses extends React.Component{
                             <div className="row">
                                 <div className="col col-sm-9">
                                     <h3>Please input the details of your expense here</h3>
-                                    <form action="">
+                                    <form>
                                         <div className="form-group">
                                             <label>Name of the expense</label>
                                             <input type="text"
@@ -119,7 +125,8 @@ export default class AddExpenses extends React.Component{
                                             
                                         </div>
 
-                                        <button type="submit" className="btn btn-danger btn-block"
+                                        {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
+                                        <button type="button" className="btn btn-danger btn-block"
                                          onClick = {this.onProceed}>
                                             Proceed
                                         </button>
