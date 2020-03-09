@@ -10,6 +10,16 @@ const database = require("../database/db.js");
         });
     });
 
+//get single user by email
+    app.get('/user/:email', function (req, res) {
+    var email = [req.params.email];
+
+    database.query('SELECT * FROM users WHERE email = ?',email, function (error, results, fields) {
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+        });
+    });
+
 //Finds a user by the user's email and password
     app.post('/user-search', function (req, res) {
     var email  = req.body.email;
@@ -27,5 +37,19 @@ const database = require("../database/db.js");
 
 //
 
+//Add user to the database
+    app.post('/user-add',function(req,res){
+    
+    var fname = req.body.fname; var lname = req.body.lname ; var email = req.body.email ; var password = req.body.password ;
+
+    database.query('INSERT INTO users(fname,lname,email,password) VALUES (?,?,?,?)',[fname,lname,email,password],
+        function(error){
+            if(error)throw error;
+            if(!error){
+                res.json({"message": "user successfully added to the database"});
+            };
+
+    })
+})
 
 }

@@ -15,6 +15,17 @@ export default class ExpensesPage extends React.Component{
         this.onAddExpense = this.onAddExpense.bind(this);
     }
 
+
+    manageExpenses = e =>{
+        var manage = document.getElementsByClassName("hidden-managers");
+        manage.style.display = "none";
+        var buttoncontent = document.getElementById("manageButton").innerHTML;
+        if (buttoncontent === "manage Expense"){
+            buttoncontent = "HIDE";
+        }else{
+            buttoncontent = "manage Expense";
+        }
+    }
     
     componentDidMount(){
 
@@ -61,10 +72,16 @@ export default class ExpensesPage extends React.Component{
 
                                             <tbody>
                                             { this.state.expense.map(expense => 
-                                                <tr>
+                                                <tr name={String(expense.expense_id)}>
                                                     <td>{expense.expense_name}</td>
                                                     <td> GHS {expense.amount}.00</td>
                                                     <td>{expense.date}</td>
+                                                    <td className="hidden-managers">
+                                                    <button type="button" className="btn btn-danger">Delete</button>
+                                                    </td>
+                                                    <td className="hidden-managers">
+                                                    <button type="button" className="btn btn-primary">Edit</button>
+                                                    </td>
                                                 </tr>
                                                 )
                                             }
@@ -74,7 +91,7 @@ export default class ExpensesPage extends React.Component{
                             <div className="row">
                                 <div className="col-4">
                                     <button onClick = {this.onAddExpense}
-                                    type="submit" className="btn btn-danger btn-block">
+                                    type="button" className="btn btn-danger btn-block">
                                         add Expense
                                     </button>
                                 </div>

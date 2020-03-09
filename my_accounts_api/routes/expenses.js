@@ -6,7 +6,7 @@ const database = require("../database/db.js");
 //get all the users
 app.get('/expenses/:id',function (req,res){
     database.query(
-    'SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%Y-%m-%d") AS date FROM expenses where user_id = ?',
+    'SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%Y-%m-%d") AS date,expense_id FROM expenses where user_id = ?',
     [req.params.id],
     function(error,results){
         if (error) throw error;
@@ -29,4 +29,18 @@ app.post('/expenses/add',function(req, res){
         }
     });
 })
+
+//This deletes a single user from the database
+app.delete('/expenses/delete',function(req,res){
+    var del = req.body.delete;
+
+    database.query("DELETE FROM expenses where expense_id = ?",[del],function(error){
+        if(error)throw error;
+        if(!error){
+            res.json({message : "The item was successfully deleted"});
+        }
+
+    })
+})
+
 }

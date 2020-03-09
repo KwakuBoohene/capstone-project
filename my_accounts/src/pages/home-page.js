@@ -4,7 +4,24 @@ import Header from "../components/header";
 import SideNav from "../components/sidenav";
 
 export default class HomePage extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            redirect : false,
+            nextpage : ""
+        }
+        this.redirectTo = this.redirectTo.bind(this);
+    }
+  
+   redirectTo = e => {
+
+       this.setState({
+           redirect : true,
+           nextpage: e.target.name,
+       })
+   }
     render(){
+
         return(
             <div>
                 <Header startPage="/home"/>
@@ -20,7 +37,9 @@ export default class HomePage extends React.Component{
                                         <h6 class="card-subtitle mb-2 text-muted">See how much money has come in
                                         in the last 30 days</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success">View info</button>
+                                        <button type="button" name="income" className="btn btn-success" onClick={this.redirectTo} >
+                                            View info
+                                        </button>
                                     </div>
                                 </div>
 
@@ -30,7 +49,9 @@ export default class HomePage extends React.Component{
                                         <h6 class="card-subtitle mb-2 text-muted">See what you have spent on
                                         in the last 30 days</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success">View info</button>
+                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="expenses" >
+                                        View info
+                                        </button>
                                     </div>
                                 </div>
 
@@ -40,7 +61,9 @@ export default class HomePage extends React.Component{
                                         <h6 class="card-subtitle mb-2 text-muted">See what you have spent on
                                         in the last 30 days</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success">View info</button>
+                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="expenses" >
+                                        View info
+                                        </button>
                                     </div>
                                 </div>
 
@@ -50,7 +73,9 @@ export default class HomePage extends React.Component{
                                         <h6 class="card-subtitle mb-2 text-muted">Check stock of the products
                                         and resources you have available</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success">View info</button>
+                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="inventory">
+                                        View info
+                                        </button>
                                     </div>
                                 </div>
 
@@ -66,7 +91,7 @@ export default class HomePage extends React.Component{
                     </div>
                 </div>
                 
-                
+                {this.state.redirect?<Redirect to={"./"+this.state.nextpage}/>:null}
             </div>
         )
     }

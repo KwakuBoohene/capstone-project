@@ -31,7 +31,7 @@ export default class SideNav extends React.Component{
                         <section className="sidenav col col-sm-2">
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item"> 
-                                    <a name="dashboard"  onClick={this.redirectTo}>Dashboard</a>
+                                    <a name="home"  onClick={this.redirectTo}>Dashboard</a>
                                 </li>
                                 <li className="list-group-item" >
                                     <a name="budget" onClick={this.redirectTo} >Budget</a>
