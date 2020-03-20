@@ -10,7 +10,7 @@ export default class AddInventory extends React.Component{
         this.state = {
             name : "",
             price : "",
-            qty : "",
+            qty : 1,
             redirect: false,
             userid: 1,
         };

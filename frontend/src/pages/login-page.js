@@ -95,7 +95,7 @@ onLogin = e => {
 }
 
 
-    modalOpen(){
+    modalOpen = e => {
         var modal = document.getElementById("myModal");
         // When the user clicks the button, open the modal 
         modal.style.display = "block";

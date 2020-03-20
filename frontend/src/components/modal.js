@@ -30,6 +30,7 @@ render(){
                             <div className="modal-content">
                                 <span className="close" onClick={this.modalCloseButton}>&times;</span>
                                 <p>{this.props.message}</p>
+                                {this.props.buttons}
                             </div>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@ import React from "react";
 import {Redirect} from "react-router";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
+import Modal from "../../components/modal";
 import axios from 'axios';
 
 export default class EditInventory extends React.Component{
@@ -14,6 +15,8 @@ export default class EditInventory extends React.Component{
             redirect: false,
             userid: 1,
             id: Number(localStorage.getItem('editinventory')),
+            message: "",
+            buttons: "",
         };
         this.Change = this.Change.bind(this);
         this.editFormData = this.editFormData.bind(this);
@@ -128,7 +131,42 @@ export default class EditInventory extends React.Component{
         }
     };
 
+    
+    modalOpen(message,buttons){
+        this.setState({
+            message: message,
+            buttons: buttons,
+        })
+        var modal = document.getElementById("myModal");
+        // When the user clicks the button, open the modal 
+        modal.style.display = "block";
+    }
+
+// When the user clicks anywhere outside of the modal, close it
+modalClose = e => {
+    var modal = document.getElementById("myModal");
+    var main =  document.getElementById("main");
+    if(e.target == modal){
+        modal.style.display = "none";
+    }
+}
+
+
+
     render(){
+        var buttons =
+        <div className="">
+            <button className='btn btn-danger' onClick = {()=> this.modalClose()}>No</button>
+            <button className="btn btn-success" onClick={() => this.deleteInventory()}>Yes</button>
+        </div>
+
+        var buttons2 =
+        <div className="">
+            <button className='btn btn-danger' onClick = {()=> this.modalClose()}>No</button>
+            <button className="btn btn-success" onClick={this.onUpdate}>Yes</button>
+        </div>
+
+
         return(
             <div className="">
                 <Header/>
@@ -168,11 +206,11 @@ export default class EditInventory extends React.Component{
 
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
                                         <button type="button" className="btn btn-success btn-block"
-                                         onClick = {this.onUpdate}>
+                                         onClick = {() => this.modalOpen('Do you want to save the changes you made ?',buttons2)}>
                                             Update
                                         </button>
                                         <button type="button" className="btn btn-danger btn-block"
-                                         onClick = {() => this.deleteInventory()}>
+                                         onClick = {() => this.modalOpen('Are you sure you want to Delete the message?',buttons)}>
                                             Delete
                                         </button>
                                         
@@ -189,6 +227,7 @@ export default class EditInventory extends React.Component{
                     </div>
 
                 </div>
+                <Modal message={this.state.message} buttons={this.state.buttons}/>
                 {this.state.redirect?<Redirect to="./inventory"/>:null}
                 
             </div>
