@@ -4,16 +4,16 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
 
-export default class ExpensesPage extends React.Component{
+export default class InventoryPage extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             id : 1,
-            expense: [],
+            inventory: [],
             redirect: false,
             redirectto: '',
         } 
-        this.onAddExpense = this.onAddExpense.bind(this);
+        this.onAddInventory = this.onAddInventory.bind(this);
     }
 
 
@@ -22,7 +22,7 @@ export default class ExpensesPage extends React.Component{
 
     componentDidMount(){
 
-        axios.get('http://localhost:5000/expenses/' + String(this.state.id)
+        axios.get('http://localhost:5000/inventory/' + String(this.state.id)
         // , {
         //     params: {
         //         id: this.state.id,
@@ -30,9 +30,9 @@ export default class ExpensesPage extends React.Component{
         // }
         )
         .then(res => {
-        const expense = res.data;
-        this.setState({ expense });
-        console.log(expense);
+        const inventory = res.data;
+        this.setState({ inventory });
+        // console.log(inventory);
       })
         .catch(function (error) {
             console.log(error);
@@ -41,10 +41,10 @@ export default class ExpensesPage extends React.Component{
 
 
 
-    editExpense(expenseItem){
-        localStorage.setItem('editexpense',expenseItem)
+    editInventory(inventoryItem){
+        localStorage.setItem('editinventory',inventoryItem)
         this.setState({
-            redirectto: './edit-expense'
+            redirectto: './edit-inventory'
         })
         this.setState({
             redirect: true,
@@ -52,9 +52,9 @@ export default class ExpensesPage extends React.Component{
 
 
     }
-    onAddExpense = e => {
+    onAddInventory = e => {
         this.setState({
-            redirectto: './add-expense'
+            redirectto: './add-inventory'
         })
         this.setState({
             redirect: true,
@@ -72,20 +72,20 @@ export default class ExpensesPage extends React.Component{
                                         <table className="table">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Expense</th>
-                                                    <th scope="col">Expense Amount</th>
-                                                    <th scope="col">Date Recorded</th>
+                                                    <th scope="col">Inventory Item</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Quantity In Stock</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                            { this.state.expense.map(expense => 
-                                                <tr name={String(expense.expense_id)}>
-                                                    <td>{expense.expense_name}</td>
-                                                    <td> GHS {expense.amount}.00</td>
-                                                    <td>{expense.date}</td>
+                                            { this.state.inventory.map(inventory => 
+                                                <tr name={String(inventory.id)}>
+                                                    <td>{inventory.name}</td>
+                                                    <td> GHS {inventory.price}.00</td>
+                                                    <td>{inventory.qty_in_stock}</td>
                                                     <td className="hidden-managers">
-                                                    <button type="button" className="btn btn-primary" onClick= {() => this.editExpense(expense.expense_id)}>
+                                                    <button type="button" className="btn btn-primary" onClick= {() => this.editInventory(inventory.id)}>
                                                         Edit
                                                     </button>
                                                     </td>
@@ -97,9 +97,9 @@ export default class ExpensesPage extends React.Component{
                             
                             <div className="row">
                                 <div className="col-4">
-                                    <button onClick = {this.onAddExpense}
+                                    <button onClick = {this.onAddInventory}
                                     type="button" className="btn btn-danger btn-block">
-                                        add Expense
+                                        add  to Inventory
                                     </button>
                                 </div>
                             </div>

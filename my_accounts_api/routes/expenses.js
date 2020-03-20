@@ -14,6 +14,16 @@ app.get('/expenses/:id',function (req,res){
     })    
 });
 
+app.get('/expenses/single/:id',function (req,res){
+    database.query(
+    'SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%Y-%m-%d") AS date,expense_id FROM expenses where expense_id = ?',
+    [req.params.id],
+    function(error,results){
+        if (error) throw error;
+        res.end(JSON.stringify(results));
+    })    
+});
+
 //add all the users to the database
 app.post('/expenses/add',function(req, res){
     var ename = req.body.ename;
@@ -31,7 +41,7 @@ app.post('/expenses/add',function(req, res){
 })
 
 //This deletes a single user from the database
-app.delete('/expenses/delete',function(req,res){
+app.post('/expenses/delete',function(req,res){
     var del = req.body.delete;
 
     database.query("DELETE FROM expenses where expense_id = ?",[del],function(error){
@@ -43,4 +53,19 @@ app.delete('/expenses/delete',function(req,res){
     })
 })
 
+
+app.post('/expenses/update',function(req,res){
+    var id = Number(req.body.id);
+    var ename = req.body.ename;
+    var amount = req.body.amount;
+    var date = req.body.date;
+
+    database.query("UPDATE expenses SET expense_name = ?, amount = ?, date_recorded = ? WHERE expense_id = ?",[ename,amount,date,id],function(error,results){
+        if(error)throw error;
+        if(!error){
+            res.end(JSON.stringify(results));
+        }
+
+    })
+})
 }

@@ -33,6 +33,7 @@ app.get("/",(req,res) =>{
 //the rest of the routes
 const users = require("./routes/users.js")(app);
 const expenses = require("./routes/expenses.js")(app);
+const inventory = require("./routes/inventory.js")(app);
 
 
 //puts the requests in json form

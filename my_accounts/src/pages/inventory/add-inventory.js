@@ -4,13 +4,13 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
 
-export default class AddExpenses extends React.Component{
+export default class AddInventory extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            ename : "",
-            amount : "",
-            date : "",
+            name : "",
+            price : "",
+            qty : "",
             redirect: false,
             userid: 1,
         };
@@ -37,16 +37,16 @@ export default class AddExpenses extends React.Component{
         addFormData(){
         axios
             
-            .post('http://localhost:5000/expenses/add',
+            .post('http://localhost:5000/inventory/add',
             {
-                'ename':this.state.ename,
-                'amount':this.state.amount,
-                'date':this.state.date,
+                'name':this.state.name,
+                'price':this.state.price,
+                'qty':this.state.qty,
                 'userid':this.state.userid,
             })
             .then(response =>{
                 console.log(response);
-                alert('expense added');
+                alert('Inventory Item added');
                 this.setState({redirect: true})
                 
             })
@@ -67,13 +67,13 @@ export default class AddExpenses extends React.Component{
     };
 
     validate = e => {
-        if(this.state.name==""||this.state.amount==""){
-            alert("Please fill name and amount form");
+        if(this.state.name==""||this.state.price==""){
+            alert("Please add the name and pricee");
             return false;
         }
         if(this.state.date==""){
             this.setState(
-                {date: this.getDate(),}
+                {qty: 1,}
             )
             return true;
         }else{
@@ -99,29 +99,29 @@ export default class AddExpenses extends React.Component{
                         <div className="col col-sm-10 container">
                             <div className="row">
                                 <div className="col col-sm-9">
-                                    <h3>Please input the details of your expense here</h3>
+                                    <h3>Please input the details of the item here</h3>
                                     <form>
                                         <div className="form-group">
-                                            <label>Name of the expense</label>
+                                            <label>Name of the item</label>
                                             <input type="text"
-                                            name = "ename" onChange = {e => this.Change(e)}
-                                            className="form-control" placeholder="What are you spending on" 
-                                            value={this.state.ename} />
+                                            name = "name" onChange = {e => this.Change(e)}
+                                            className="form-control" placeholder="What are you adding" 
+                                            value={this.state.name} />
                                         </div>
 
                                         <div className="form-group">
-                                            <label>amount</label>
-                                            <input type="number" name= "amount" onChange = {e => this.Change(e)}
-                                             className="form-control" placeholder="How much are you spending" value={this.state.amount}/>
+                                            <label>Price</label>
+                                            <input type="number" name= "price" onChange = {e => this.Change(e)}
+                                             className="form-control" placeholder="What is the unit price" value={this.price}/>
                                         </div>
 
                                         <div className="form-group">
-                                            <label>Date</label>
-                                            <input type="date" name="date" placeholder="YYYY-MM-DD" required 
+                                            <label>Quantity</label>
+                                            <input type="number" name="qty" placeholder="How much of it did you buy" required 
                                              
                                             className="form-control" onChange = {e => this.Change(e)}
-                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.date}/>
-                                            *Default date would be the current date*
+                                            title="" value={this.state.qty}/>
+                                            *Default quantity would be 1*
                                             
                                         </div>
 
@@ -143,7 +143,7 @@ export default class AddExpenses extends React.Component{
                     </div>
 
                 </div>
-                {this.state.redirect?<Redirect to="./expenses"/>:null}
+                {this.state.redirect?<Redirect to="./inventory"/>:null}
                 
             </div>
         )

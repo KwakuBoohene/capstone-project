@@ -75,6 +75,15 @@ validation(){
         }
     }
 }
+
+enterLogin = event => {
+    var code = event.keyCode || event.which
+    if(code === 13) { 
+        if(this.validation()){
+            this.checkFormData();
+        }
+    } 
+}
     
 onLogin = e => {
      
@@ -118,17 +127,17 @@ modalClose = e => {
                                 <h3 className="login-heading mb-4">Welcome back!</h3>
                                 <form>
                                     <div className="form-label-group">
-                                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autofocus name="email" onChange ={this.Change}/>
+                                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autofocus name="email" onKeyUp={this.enterLogin} onChange ={this.Change}/>
                                     <label for="inputEmail">Email address</label>
                                     </div>
 
                                     <div className="form-label-group">
-                                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" name= "password" onChange={this.Change} required/>
+                                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" name= "password" onKeyUp={this.enterLogin} onChange={this.Change} required/>
                                     <label for="inputPassword">Password</label>
                                     </div>
 
                                     <div className="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" className="custom-control-input" id="customCheck1"/>
+                                    <input type="checkbox" className="custom-control-input" id="customCheck1" />
                                     <label className="custom-control-label" for="customCheck1">Remember password</label>
                                     </div>
                                     <button type="button" className="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" onClick={this.onLogin}>

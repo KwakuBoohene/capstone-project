@@ -4,7 +4,7 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
 
-export default class AddExpenses extends React.Component{
+export default class EditExpenses extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -13,14 +13,38 @@ export default class AddExpenses extends React.Component{
             date : "",
             redirect: false,
             userid: 1,
+            id: Number(localStorage.getItem('editexpense')),
         };
         this.Change = this.Change.bind(this);
-        this.addFormData = this.addFormData.bind(this);
-        this.onProceed =  this.onProceed.bind(this);
+        this.editFormData = this.editFormData.bind(this);
+        this.onUpdate =  this.onUpdate.bind(this);
         this.validate = this.validate.bind(this);
         this.getDate = this.getDate.bind(this);
     }
 
+    getExpenseData(){
+                axios.get('http://localhost:5000/expenses/single/' + String(this.state.id)
+        )
+        .then(res => {
+        const expense = res.data;
+        expense.map(expense =>
+        this.setState({ 
+            ename:expense.expense_name,
+            amount:expense.amount,
+            date: expense.date
+             })
+        )
+
+      })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    componentDidMount(){
+        console.log(localStorage.removeItem('editexpense'))
+        this.getExpenseData();
+    }
     Change = e => {
         this.setState({
         [e.target.name]: e.target.value
@@ -34,27 +58,47 @@ export default class AddExpenses extends React.Component{
         return date;
     }
 
-        addFormData(){
-        axios
+    editFormData(){
+    axios
+        
+        .post('http://localhost:5000/expenses/update',
+        {
+            'ename':this.state.ename,
+            'amount':this.state.amount,
+            'date':this.state.date,
+            'id':this.state.id,
+        })
+        .then(response =>{
+            console.log(response);
+            alert('expense updated');
+            this.setState({redirect: true})
             
-            .post('http://localhost:5000/expenses/add',
-            {
-                'ename':this.state.ename,
-                'amount':this.state.amount,
-                'date':this.state.date,
-                'userid':this.state.userid,
-            })
-            .then(response =>{
-                console.log(response);
-                alert('expense added');
-                this.setState({redirect: true})
-                
-            })
-            .catch(error =>{
-                console.log(error);
-                alert(error);
-            })
+        })
+        .catch(error =>{
+            console.log(error);
+            alert(error);
+        })
 
+
+    }
+
+    deleteExpense(){
+        axios
+        
+        .post('http://localhost:5000/expenses/delete',
+        {
+            'delete':this.state.id,
+        })
+        .then(response =>{
+            console.log(response);
+            alert('expense deleted');
+            this.setState({redirect: true})
+            
+        })
+        .catch(error =>{
+            console.log(error);
+            alert(error);
+        })
 
     }
 
@@ -81,10 +125,10 @@ export default class AddExpenses extends React.Component{
         }
     };
 
-    onProceed = e => {
+    onUpdate = e => {
         var validate = this.validate();
         if(validate==true){
-            this.addFormData();
+            this.editFormData();
         }
     };
 
@@ -126,10 +170,15 @@ export default class AddExpenses extends React.Component{
                                         </div>
 
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
-                                        <button type="button" className="btn btn-danger btn-block"
-                                         onClick = {this.onProceed}>
-                                            Proceed
+                                        <button type="button" className="btn btn-success btn-block"
+                                         onClick = {this.onUpdate}>
+                                            Update
                                         </button>
+                                        <button type="button" className="btn btn-danger btn-block"
+                                         onClick = {() => this.deleteExpense()}>
+                                            Delete
+                                        </button>
+                                        
 
                                     
                                     </form>
