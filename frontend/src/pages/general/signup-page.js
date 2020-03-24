@@ -1,9 +1,9 @@
 import React from "react";
 import {Redirect} from "react-router";
 import ReactDOM from "react-dom";
-import Header from "../components/header.js";
+import Header from "../../components/header.js";
 import axios from 'axios';
-import Modal from "../components/modal.js";
+import Modal from "../../components/modal.js";
 
 export default class SignupPage extends React.Component{
 

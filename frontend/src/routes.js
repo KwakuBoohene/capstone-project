@@ -1,10 +1,10 @@
 import React from "react";
 import {BrowserRouter,Route} from "react-router-dom";
 
-import LandingPage from "./pages/landing-page";
-import LoginPage from "./pages/login-page";
-import SignupPage from "./pages/signup-page";
-import HomePage from "./pages/home-page";
+import LandingPage from "./pages/general/landing-page";
+import LoginPage from "./pages/general/login-page";
+import SignupPage from "./pages/general/signup-page";
+import HomePage from "./pages/general/home-page";
 
 import AddExpenses from "./pages/expenses/add-expense";
 import ExpensesPage from "./pages/expenses/expenses-page";
@@ -13,6 +13,8 @@ import EditExpenses from "./pages/expenses/edit-expense";
 import InventoryPage from "./pages/inventory/inventory-page";
 import AddInventory from "./pages/inventory/add-inventory";
 import EditInventory from "./pages/inventory/edit-inventory";
+
+import expenseGraph from "./components/expenseGraph";
 export default () => (
     
     <BrowserRouter>
@@ -29,6 +31,8 @@ export default () => (
             <Route exact path = "/inventory" render = {() => <InventoryPage/> }/>
             <Route exact path = "/add-inventory" component = {AddInventory} />
             <Route exact path = "/edit-inventory" component = {EditInventory} />
+
+            <Route exact path = "/graph" component = {expenseGraph}/>
         </div>
 
     </BrowserRouter>

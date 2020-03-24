@@ -40,7 +40,7 @@ app.post('/expenses/add',function(req, res){
     });
 })
 
-//This deletes a single user from the database
+//This deletes a single expense from the database
 app.post('/expenses/delete',function(req,res){
     var del = req.body.delete;
 
@@ -53,7 +53,7 @@ app.post('/expenses/delete',function(req,res){
     })
 })
 
-
+// This updates the details of an expense  
 app.post('/expenses/update',function(req,res){
     var id = Number(req.body.id);
     var ename = req.body.ename;
@@ -68,4 +68,17 @@ app.post('/expenses/update',function(req,res){
 
     })
 })
+
+// This selects the expense by a given month
+app.post('/expenses/month',function(req,res){
+    var id = req.body.id;
+    var month = req.body.month;
+
+    database.query('SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%d") AS date FROM expenses WHERE user_id= ? AND MONTH(date_recorded) = ?',[id,month],function(error,results){
+        if(error) throw error;
+        if(!error){
+            res.end(JSON.stringify(results));
+        }
+    })
+}) 
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import {Redirect} from "react-router";
-import Header from "../components/header.js";
-import Modal from "../components/modal.js";
+import Header from "../../components/header.js";
+import Modal from "../../components/modal.js";
 import axios from 'axios';
 
 export default class LoginPage extends React.Component{
@@ -36,7 +36,11 @@ axios
     })
     .then(res =>{
         const returnData = Object.keys(res.data).length;
-        console.log(returnData);
+        const userid = Object.values(res.data)[0].id ;
+        const fname = Object.values(res.data)[0].fname ;
+        localStorage.setItem('userid',userid)
+        localStorage.setItem('fname',fname)
+        console.log(localStorage)
         if(returnData==0){
             this.setState({
                 message :"User's email or password is invalid"

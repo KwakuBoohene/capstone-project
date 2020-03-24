@@ -1,7 +1,8 @@
 import React from "react";
-import {Redirect} from "react-router";
-import Header from "../components/header";
-import SideNav from "../components/sidenav";
+import {Redirect,Link} from "react-router-dom";
+import Header from "../../components/header";
+import SideNav from "../../components/sidenav";
+
 
 export default class HomePage extends React.Component{
     constructor(props) {
@@ -21,14 +22,24 @@ export default class HomePage extends React.Component{
        })
    }
     render(){
+        const buttons =
+            <div className="col-sm-2">
+                <Link to='/' className="header-links btn btn-danger" onClick = {this.logout}>Logout</Link>
+            </div>
+        
 
         return(
             <div>
-                <Header startPage="/home"/>
+                <Header startPage="/home" buttons={buttons}/>
                 <div className="container-fluid">
                     <div className="row">
                         <SideNav/>
                         <section className="homepage-main col col-sm-10 container">
+
+                            <br/>
+                            <h5>Welcome {localStorage.getItem('fname')}</h5>
+                            <br/>
+                                            
                             <div className="row">
 
                                 <div class="card col col-sm-5" id="homepage-grid-item">

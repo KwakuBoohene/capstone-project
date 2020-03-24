@@ -3,6 +3,7 @@ import {Redirect} from "react-router";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
+import ExpenseGraph from '../../components/expenseGraph';
 
 export default class ExpensesPage extends React.Component{
     constructor(props) {
@@ -12,15 +13,17 @@ export default class ExpensesPage extends React.Component{
             expense: [],
             redirect: false,
             redirectto: '',
+            expensesGraph: [],
+            data : {},
         } 
         this.onAddExpense = this.onAddExpense.bind(this);
     }
 
 
-    
-
-
     componentDidMount(){
+
+
+
 
         axios.get('http://localhost:5000/expenses/' + String(this.state.id)
         // , {
@@ -69,6 +72,10 @@ export default class ExpensesPage extends React.Component{
                     <div className="row">
                     <SideNav/>
                         <div className="col col-sm-10 container">
+                        
+                            <ExpenseGraph/>
+                        
+         
                                         <table className="table">
                                             <thead>
                                                 <tr>

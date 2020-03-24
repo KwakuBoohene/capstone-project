@@ -24,7 +24,7 @@ const database = require("../database/db.js");
     app.post('/user-search', function (req, res) {
     var email  = req.body.email;
     var password = req.body.password;
-    database.query('SELECT fname,lname,password FROM users WHERE email=? and password = ? ',[email,password],
+    database.query('SELECT id,fname,lname,password FROM users WHERE email=? and password = ? ',[email,password],
       function (error, results, fields) {
         if (error) throw error;
         // if (results===[]){

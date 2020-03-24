@@ -2,6 +2,7 @@ import React from "react";
 
 export default class LandingPage extends React.Component{
     render(){
+
         return(
         <div>
 
@@ -51,17 +52,17 @@ export default class LandingPage extends React.Component{
                 <div className="container-fluid">
                     <div className="app-features row justify-content-sm-center">
                         <div className="col-sm-3">
-                            <img className='landing-icon' src={require('../images/landing-expenses-icon.png')}/>
+                            <img className='landing-icon' src={require('../../images/landing-expenses-icon.png')}/>
                             <p>Keep track of all your sales, expenses and revenue</p>
                         </div>
 
                         <div className="col-sm-3">
-                            <img className='landing-icon' src={require("../images/landing-budget-icon.png")}/>
+                            <img className='landing-icon' src={require("../../images/landing-budget-icon.png")}/>
                             <p>Draw up your budget and get alerts when you deviate from it</p>
                         </div>
 
                         <div className="col-sm-3">
-                            <img className='landing-icon' src={require("../images/landing-costing-icon.png")}/>
+                            <img className='landing-icon' src={require("../../images/landing-costing-icon.png")}/>
                             <p>Cost your jobs to estimate your profit
                             and make sure you break even.
                             Avoid a loss at all costs
@@ -69,7 +70,7 @@ export default class LandingPage extends React.Component{
                         </div>
 
                         <div className="col-sm-3">
-                            <img className='landing-icon' src={require("../images/landing-debtor-icon.png")}/>
+                            <img className='landing-icon' src={require("../../images/landing-debtor-icon.png")}/>
                             <p>Keep track of who you owe and who owes you.</p>
                         </div>
                     </div>
