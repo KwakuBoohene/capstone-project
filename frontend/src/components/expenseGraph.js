@@ -1,28 +1,24 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Bar} from 'react-chartjs-2';
 import axios from 'axios';
-import CanvasJSReact from '../assets/canvasjs.react';
-//var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
-var Canvas = CanvasJSReact.CanvasJSChart;
+
 
 export default class ExpenseGraph extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            id: 1,
+            id: Number(localStorage.getItem('userid')),
             expenses: [],
-            data: {},
         }
     }
 
-    componentDidMount(){
-        var date1 = new Date();
-        var thismonth = date1.getMonth() + 1; 
+    componentWillMount(){
+        this.getMonthExpenses();
+    }
 
-        axios.post('http://localhost:5000/expenses/month',{
+    getMonthExpenses(){
+            axios.post('http://localhost:5000/expenses/month',{
             id:this.state.id,
-            month: thismonth,
         })
         .then(res => {
             const expenses = res.data;
@@ -31,47 +27,51 @@ export default class ExpenseGraph extends React.Component{
         .catch(function(error){
             alert(error);
         })
-           
-
     }
+
     
-    render(){
-        var keys = Object.values(this.state.expenses);
-        var amounts = [];
-        var datapoints1 = [];
-        var accum = 0;
+    
+    getAmounts(expenses){
+        var keys = Object.values(expenses);
+        var accum = [];
         for (const[index,value]of keys.entries()){
-            accum = accum + keys[index].amount
-            amounts.push(accum)
-            datapoints1.push({y: accum, label: keys[index].date })
+            accum.push(keys[index].amount)
         }
-        console.log(datapoints1)
+        return accum
+    }
 
-        const options = {
-                animationEnabled: true,	
-				title:{
-					text: "Expenses for the Month of March"
-				},
-				axisY : {
-					title: "Amount spent in Cedis",
-					includeZero: false
-				},
-				toolTip: {
-					shared: true
-				},
-                data : [{
-                    type: "spline",
-					name: "March",
-					showInLegend: true,
-					dataPoints: datapoints1
-                } ]
-        } 
+        getDate(expenses){
+        var keys = Object.values(expenses);
+        var accum = [];
+        for (const[index,value]of keys.entries()){
+            accum.push(keys[index].date)
+        }
+        return accum
+    }
 
-        
 
+
+    render(){
+        var amounts = this.getAmounts(this.state.expenses);
+        var dates2 = this.getDate(this.state.expenses);
+     
+        const data = {
+        labels: dates2,
+        datasets: [
+            {
+            label: 'Months',
+            lineTension: 0.1,
+            backgroundColor: 'rgba(75,192,192,0.4)',
+            borderColor: 'rgba(75,192,192,1)',
+            pointBorderColor: 'rgba(75,192,192,1)',
+  
+            data: amounts
+            }
+        ]
+        };
         return(
             <div className="">
-               <Canvas options = {options} />
+               <Bar ref="chart" height={80}  data={data} />
             </div>
         )
     }

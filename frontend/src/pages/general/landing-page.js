@@ -15,10 +15,10 @@ export default class LandingPage extends React.Component{
                         <div className="col-sm-6">
                         </div>
                         <div className="col-sm-2">
-                            <h4><a className="header-links btn btn-danger" href="/login">Log in</a></h4>
+                            <h4><a className="header-links btn btn-success" href="/login">Log in</a></h4>
                         </div>
                         <div className="col-sm-2">
-                            <h4> <a className="header-links btn btn-danger" href="/signup">Sign up</a></h4>
+                            <h4> <a className="header-links btn btn-success" href="/signup">Sign up</a></h4>
                         </div>
                     </div>
                 </div>
@@ -27,12 +27,12 @@ export default class LandingPage extends React.Component{
             <section className="landing-middle">
                 <div className="container-fluid">
                     <div className="row justify-content-sm-center">
-                        <h2>
+                        <h2 className="text-center">
                         USE THE MY-ACCOUNTS APP TO MANAGE <br/> YOUR BUSINESS' 
                         FINANCES
                         </h2>
                         <p className="text-center">LEARN HOW TO USE OUR APP BY CLICKING HERE</p>
-                        <button className="btn btn-danger">Quick Tutorial</button>  
+                        <button className="btn btn-success">Quick Tutorial</button>  
                     </div>
                 </div>
             </section>

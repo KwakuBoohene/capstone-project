@@ -38,17 +38,18 @@ export default class Header extends React.Component{
                     <div className="row justify-content-sm-center">
                         <div className="col-sm-5">
                             
-                                <h2 className="text-center">
+                                <h2>
                                     <a onClick={this.redirect} className="header-icon">MYACCOUNTS</a>
                                 </h2>
                              
                         </div>
-                        <div className="col-sm-1">
+                        <div className="col-sm-5">
 
                         </div>
 
-                        {this.props.buttons}
-
+                        <div className="col-sm-2">
+                            <Link to='/' className="header-links btn btn-danger" onClick = {this.logout}>Logout</Link>
+                        </div>
                     </div>
                 </div>
 

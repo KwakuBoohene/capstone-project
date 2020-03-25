@@ -72,9 +72,8 @@ app.post('/expenses/update',function(req,res){
 // This selects the expense by a given month
 app.post('/expenses/month',function(req,res){
     var id = req.body.id;
-    var month = req.body.month;
 
-    database.query('SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%d") AS date FROM expenses WHERE user_id= ? AND MONTH(date_recorded) = ?',[id,month],function(error,results){
+    database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(date_recorded,"%b") AS date FROM expenses WHERE user_id=? GROUP BY date',[id],function(error,results){
         if(error) throw error;
         if(!error){
             res.end(JSON.stringify(results));

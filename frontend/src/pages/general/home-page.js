@@ -22,15 +22,13 @@ export default class HomePage extends React.Component{
        })
    }
     render(){
-        const buttons =
-            <div className="col-sm-2">
-                <Link to='/' className="header-links btn btn-danger" onClick = {this.logout}>Logout</Link>
-            </div>
+        
+
         
 
         return(
             <div>
-                <Header startPage="/home" buttons={buttons}/>
+                <Header startPage="/home" />
                 <div className="container-fluid">
                     <div className="row">
                         <SideNav/>

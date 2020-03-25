@@ -9,6 +9,7 @@ import HomePage from "./pages/general/home-page";
 import AddExpenses from "./pages/expenses/add-expense";
 import ExpensesPage from "./pages/expenses/expenses-page";
 import EditExpenses from "./pages/expenses/edit-expense";
+import AllExpenses from  "./pages/expenses/all-expenses";
 
 import InventoryPage from "./pages/inventory/inventory-page";
 import AddInventory from "./pages/inventory/add-inventory";
@@ -27,6 +28,7 @@ export default () => (
             <Route exact path = "/add-expense" component = {AddExpenses} />
             <Route exact path = "/expenses" render = {() => <ExpensesPage/> }/>
             <Route exact path = "/edit-expense" render = {() => <EditExpenses/> }/>
+            <Route exact path = "/all-expenses" render = {() => <AllExpenses/> }/>
 
             <Route exact path = "/inventory" render = {() => <InventoryPage/> }/>
             <Route exact path = "/add-inventory" component = {AddInventory} />

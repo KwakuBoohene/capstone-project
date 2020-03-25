@@ -9,7 +9,7 @@ export default class ExpensesPage extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            id : 1,
+            id : Number(localStorage.getItem('userid')),
             expense: [],
             redirect: false,
             redirectto: '',
@@ -35,7 +35,7 @@ export default class ExpensesPage extends React.Component{
         .then(res => {
         const expense = res.data;
         this.setState({ expense });
-        console.log(expense);
+    
       })
         .catch(function (error) {
             console.log(error);
@@ -58,6 +58,15 @@ export default class ExpensesPage extends React.Component{
     onAddExpense = e => {
         this.setState({
             redirectto: './add-expense'
+        })
+        this.setState({
+            redirect: true,
+        })
+    }
+
+    AllExpense = e => {
+        this.setState({
+            redirectto: './all-expenses'
         })
         this.setState({
             redirect: true,
@@ -86,13 +95,13 @@ export default class ExpensesPage extends React.Component{
                                             </thead>
 
                                             <tbody>
-                                            { this.state.expense.map(expense => 
+                                            { this.state.expense.slice(0, 3).map(expense => 
                                                 <tr name={String(expense.expense_id)}>
                                                     <td>{expense.expense_name}</td>
                                                     <td> GHS {expense.amount}.00</td>
                                                     <td>{expense.date}</td>
                                                     <td className="hidden-managers">
-                                                    <button type="button" className="btn btn-primary" onClick= {() => this.editExpense(expense.expense_id)}>
+                                                    <button type="button" className="btn btn-success" onClick= {() => this.editExpense(expense.expense_id)}>
                                                         Edit
                                                     </button>
                                                     </td>
@@ -108,6 +117,18 @@ export default class ExpensesPage extends React.Component{
                                     type="button" className="btn btn-danger btn-block">
                                         add Expense
                                     </button>
+                                </div>
+
+                                <div className="col-4">
+
+                                </div>
+
+                                <div className="col-4">
+                                    <button onClick = {this.AllExpense}
+                                    type="button" className="btn btn-success btn-block">
+                                        view all expenses
+                                    </button>
+                                    
                                 </div>
                             </div>
                             {this.state.redirect?<Redirect to={this.state.redirectto}/>:null}

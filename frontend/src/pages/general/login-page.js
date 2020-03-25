@@ -1,6 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
-import Header from "../../components/header.js";
+import {Redirect,Link} from "react-router-dom";
 import Modal from "../../components/modal.js";
 import axios from 'axios';
 
@@ -36,11 +35,6 @@ axios
     })
     .then(res =>{
         const returnData = Object.keys(res.data).length;
-        const userid = Object.values(res.data)[0].id ;
-        const fname = Object.values(res.data)[0].fname ;
-        localStorage.setItem('userid',userid)
-        localStorage.setItem('fname',fname)
-        console.log(localStorage)
         if(returnData==0){
             this.setState({
                 message :"User's email or password is invalid"
@@ -50,6 +44,12 @@ axios
             this.setState({
                 redirect :true,
             });
+        
+        const userid = Object.values(res.data)[0].id ;
+        const fname = Object.values(res.data)[0].fname ;
+        localStorage.setItem('userid',userid)
+        localStorage.setItem('fname',fname)
+        console.log(localStorage)
         }
     })
     .catch(error =>{
@@ -118,7 +118,15 @@ modalClose = e => {
     
         return(
             <div id="main" onClick={this.modalClose}>
-                <Header startPage="/"/>
+                <section className="header">
+                <div className="container-fluid">
+                    <div className="row  justify-content-md-center">
+                        <div className="header-icon col-sm-2">
+                            <h2 className="text-center"><Link className="header-icon" to="/">MYACCOUNTS</Link> </h2>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
                 <div className="container-fluid">
                     <div className="row no-gutter">
@@ -144,7 +152,7 @@ modalClose = e => {
                                     <input type="checkbox" className="custom-control-input" id="customCheck1" />
                                     <label className="custom-control-label" for="customCheck1">Remember password</label>
                                     </div>
-                                    <button type="button" className="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" onClick={this.onLogin}>
+                                    <button type="button" className="btn btn-lg btn-success btn-block btn-login text-uppercase font-weight-bold mb-2" onClick={this.onLogin}>
                                     Sign in</button>
                                     <div className="text-center">
                                     <a className="small" href="#">Forgot password?</a></div>

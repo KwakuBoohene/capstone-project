@@ -165,7 +165,7 @@ modalClose = e => {
                                     <label for="inputConfirmPassword">Confirm password</label>
                                 </div>
 
-                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" onClick= {this.onSignUpClicked}>Register</button>
+                                <button class="btn btn-lg btn-success btn-block text-uppercase" type="button" onClick= {this.onSignUpClicked}>Register</button>
 
                                 </form>
                             </div>

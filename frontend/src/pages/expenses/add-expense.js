@@ -126,7 +126,7 @@ export default class AddExpenses extends React.Component{
                                         </div>
 
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
-                                        <button type="button" className="btn btn-danger btn-block"
+                                        <button type="button" className="btn btn-success btn-block"
                                          onClick = {this.onProceed}>
                                             Proceed
                                         </button>
