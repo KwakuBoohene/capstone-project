@@ -28,14 +28,14 @@ export default class SideNav extends React.Component{
    }
     render(){
         return(
-                        <section className="sidenav col col-sm-2">
+                        <section className="sidenav col col-md-2 hidden-sm-down">
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item"> 
                                     <a name="home"  onClick={this.redirectTo}>Dashboard</a>
                                 </li>
-                                <li className="list-group-item" >
+                                {/* <li className="list-group-item" >
                                     <a name="budget" onClick={this.redirectTo} >Budget</a>
-                                </li>
+                                </li> */}
                                 <li className="list-group-item" >
                                     <a name ="sales"  onClick={this.redirectTo}>Sales</a>
                                 </li>
@@ -43,15 +43,14 @@ export default class SideNav extends React.Component{
                                     <a name="expenses" onClick={this.redirectTo}>Expenses</a>
                                 </li>
                                 <li className="list-group-item" >
-                                    <a name="debtors" onClick={this.redirectTo}>Debtors/Creditors</a>
+                                    <a name="debtors" onClick={this.redirectTo}>Debtors</a>
                                 </li>
                                 <li className="list-group-item" >
-                                    <a name="inventory" onClick={this.redirectTo}>Inventory</a>
+                                    <a name="creditors" onClick={this.redirectTo}>Creditors</a>
                                 </li>
-                                <li className="list-group-item" >
-                                    <a name= "costing" onClick={this.redirectTo}>Job Costing/Special order</a>
+                                <li className="list-group-item">
+                                    <a name="reports" onClick={this.redirectTo}>Reports</a>
                                 </li>
-
                             </ul>
 
                             {this.state.redirect?<Redirect to= {this.state.nextPage}/>:null}

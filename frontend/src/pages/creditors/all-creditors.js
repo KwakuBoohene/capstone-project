@@ -4,25 +4,28 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
 
-export default class InventoryPage extends React.Component{
+
+export default class AllCreditors extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             id : Number(localStorage.getItem('userid')),
-            inventory: [],
+            creditors: [],
             redirect: false,
             redirectto: '',
+            // salesGraph: [],
+            // data : {},
         } 
-        this.onAddInventory = this.onAddInventory.bind(this);
+        this.onAddCreditor = this.onAddCreditor.bind(this);
     }
-
-
-    
 
 
     componentDidMount(){
 
-        axios.get('http://localhost:5000/inventory/' + String(this.state.id)
+
+
+
+        axios.get('http://localhost:5000/creditors/' + String(this.state.id)
         // , {
         //     params: {
         //         id: this.state.id,
@@ -30,9 +33,9 @@ export default class InventoryPage extends React.Component{
         // }
         )
         .then(res => {
-        const inventory = res.data;
-        this.setState({ inventory });
-        // console.log(inventory);
+        const creditors = res.data;
+        this.setState({ creditors });
+    
       })
         .catch(function (error) {
             console.log(error);
@@ -41,10 +44,10 @@ export default class InventoryPage extends React.Component{
 
 
 
-    editInventory(inventoryItem){
-        localStorage.setItem('editinventory',inventoryItem)
+    editCreditor(saleItem){
+        localStorage.setItem('editcreditor',saleItem)
         this.setState({
-            redirectto: './edit-inventory'
+            redirectto: './edit-creditor'
         })
         this.setState({
             redirect: true,
@@ -52,9 +55,18 @@ export default class InventoryPage extends React.Component{
 
 
     }
-    onAddInventory = e => {
+    onAddCreditor = e => {
         this.setState({
-            redirectto: './add-inventory'
+            redirectto: './add-creditor'
+        })
+        this.setState({
+            redirect: true,
+        })
+    }
+
+    AllCreditors = e => {
+        this.setState({
+            redirectto: './all-creditors'
         })
         this.setState({
             redirect: true,
@@ -72,20 +84,22 @@ export default class InventoryPage extends React.Component{
                                         <table className="table">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Inventory Item</th>
-                                                    <th scope="col">Price</th>
-                                                    <th scope="col">Quantity In Stock</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Amount</th>
+                                                    <th scope="col">Date Recorded</th>
+                                                    <th scope="col">Payment Made</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                            { this.state.inventory.map(inventory => 
-                                                <tr name={String(inventory.id)}>
-                                                    <td>{inventory.name}</td>
-                                                    <td> GHS {inventory.price}.00</td>
-                                                    <td>{inventory.qty_in_stock}</td>
+                                            { this.state.creditors.map(creditors => 
+                                                <tr name={String(creditors.id)}>
+                                                    <td>{creditors.name}</td>
+                                                    <td>GHS {creditors.amount}.00</td>
+                                                    <td>{creditors.dBorrow}</td>
+                                                    <td> {(creditors.made_payment)?"Yes":"No"}</td>
                                                     <td className="hidden-managers">
-                                                    <button type="button" className="btn btn-success" onClick= {() => this.editInventory(inventory.id)}>
+                                                    <button type="button" className="btn btn-success" onClick= {() => this.editCreditor(creditors.id)}>
                                                         Edit
                                                     </button>
                                                     </td>
@@ -97,11 +111,13 @@ export default class InventoryPage extends React.Component{
                             
                             <div className="row">
                                 <div className="col-4">
-                                    <button onClick = {this.onAddInventory}
+                                    <button onClick = {this.onAddCreditor}
                                     type="button" className="btn btn-danger btn-block">
-                                        add  to Inventory
+                                        add Creditor
                                     </button>
                                 </div>
+
+                                
                             </div>
                             {this.state.redirect?<Redirect to={this.state.redirectto}/>:null}
                         </div>

@@ -3,26 +3,26 @@ import {Bar} from 'react-chartjs-2';
 import axios from 'axios';
 
 
-export default class ExpenseGraph extends React.Component{
+export default class SalesGraph extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             id: Number(localStorage.getItem('userid')),
-            expenses: [],
+            sales: [],
         }
     }
 
     componentWillMount(){
-        this.getMonthExpenses();
+        this.getMonthSales();
     }
 
-    getMonthExpenses(){
-            axios.post('http://localhost:5000/expenses/month',{
+    getMonthSales(){
+            axios.post('http://localhost:5000/sales/month',{
             id:this.state.id,
         })
         .then(res => {
-            const expenses = res.data;
-            this.setState({ expenses });
+            const sales = res.data;
+            this.setState({ sales });
         })
         .catch(function(error){
             alert(error);
@@ -31,8 +31,8 @@ export default class ExpenseGraph extends React.Component{
 
     
     
-    getAmounts(expenses){
-        var keys = Object.values(expenses);
+    getAmounts(sales){
+        var keys = Object.values(sales);
         var accum = [];
         for (const[index,value]of keys.entries()){
             accum.push(keys[index].amount)
@@ -43,8 +43,8 @@ export default class ExpenseGraph extends React.Component{
         return accum
     }
 
-        getDate(expenses){
-        var keys = Object.values(expenses);
+        getDate(sales){
+        var keys = Object.values(sales);
         var accum = [];
         for (const[index,value]of keys.entries()){
             accum.push(keys[index].date)
@@ -58,8 +58,8 @@ export default class ExpenseGraph extends React.Component{
 
 
     render(){
-        var amounts = this.getAmounts(this.state.expenses);
-        var dates2 = this.getDate(this.state.expenses);
+        var amounts = this.getAmounts(this.state.sales);
+        var dates2 = this.getDate(this.state.sales);
      
         const data = {
         labels: dates2,

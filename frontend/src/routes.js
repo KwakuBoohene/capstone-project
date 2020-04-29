@@ -6,16 +6,29 @@ import LoginPage from "./pages/general/login-page";
 import SignupPage from "./pages/general/signup-page";
 import HomePage from "./pages/general/home-page";
 
-import AddExpenses from "./pages/expenses/add-expense";
+import AddExpense from "./pages/expenses/add-expense";
 import ExpensesPage from "./pages/expenses/expenses-page";
-import EditExpenses from "./pages/expenses/edit-expense";
+import EditExpense from "./pages/expenses/edit-expense";
 import AllExpenses from  "./pages/expenses/all-expenses";
 
-import InventoryPage from "./pages/inventory/inventory-page";
-import AddInventory from "./pages/inventory/add-inventory";
-import EditInventory from "./pages/inventory/edit-inventory";
+import AddSale from "./pages/sales/add-sale";
+import SalesPage from "./pages/sales/sales-page";
+import EditSale from "./pages/sales/edit-sale";
+import AllSales from  "./pages/sales/all-sales";
+
+import CreditorsPage from "./pages/creditors/creditors-page";
+import AllCreditors from "./pages/creditors/all-creditors";
+import AddCreditor from "./pages/creditors/add-creditor";
+import EditCreditor from "./pages/creditors/edit-creditor";
+
+import DebtorsPage from "./pages/debtors/debtors-page";
+import AllDebtors from "./pages/debtors/all-debtors";
+import AddDebtor from "./pages/debtors/add-debtor";
+import EditDebtor from "./pages/debtors/edit-debtor";
+
 
 import expenseGraph from "./components/expenseGraph";
+
 export default () => (
     
     <BrowserRouter>
@@ -25,14 +38,26 @@ export default () => (
             <Route exact path = "/signup" component = {SignupPage} />
             <Route exact path = "/home" component = {HomePage} />
 
-            <Route exact path = "/add-expense" component = {AddExpenses} />
+            <Route exact path = "/add-expense" component = {AddExpense} />
             <Route exact path = "/expenses" render = {() => <ExpensesPage/> }/>
-            <Route exact path = "/edit-expense" render = {() => <EditExpenses/> }/>
+            <Route exact path = "/edit-expense" render = {() => <EditExpense/> }/>
             <Route exact path = "/all-expenses" render = {() => <AllExpenses/> }/>
 
-            <Route exact path = "/inventory" render = {() => <InventoryPage/> }/>
-            <Route exact path = "/add-inventory" component = {AddInventory} />
-            <Route exact path = "/edit-inventory" component = {EditInventory} />
+            <Route exact path = "/all-sales" render = {() => <AllSales/> }/>
+            <Route exact path = "/add-sale" render = {() => <AddSale/> }/>
+            <Route exact path = "/edit-sale" render = {() => <EditSale/> }/>
+            <Route exact path = "/sales" render = {() => <SalesPage/> }/>
+
+            <Route exact path = "/all-creditors" render = {() => <AllCreditors/> }/>
+            <Route exact path = "/creditors" render = {() => <CreditorsPage/> }/>
+            <Route exact path = "/add-creditor" render = {() => <AddCreditor/> }/>
+            <Route exact path = "/edit-creditor" render = {() => <EditCreditor/> }/>
+
+
+            <Route exact path = "/all-debtors" render = {() => <AllDebtors/> }/>
+            <Route exact path = "/debtors" render = {() => <DebtorsPage/> }/>
+            <Route exact path = "/add-debtor" render = {() => <AddDebtor/> }/>
+            <Route exact path = "/edit-debtor" render = {() => <EditDebtor/> }/>
 
             <Route exact path = "/graph" component = {expenseGraph}/>
         </div>

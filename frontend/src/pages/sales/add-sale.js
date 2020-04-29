@@ -4,15 +4,17 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
 
-export default class AddInventory extends React.Component{
+export default class AddSale extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name : "",
-            price : "",
-            qty : 1,
+            ename : "",
+            amount : "",
+            date : "",
             redirect: false,
-            userid: 1,
+            userid: Number(localStorage.getItem('userid')),
+          
+            quantity:"",
         };
         this.Change = this.Change.bind(this);
         this.addFormData = this.addFormData.bind(this);
@@ -20,6 +22,7 @@ export default class AddInventory extends React.Component{
         this.validate = this.validate.bind(this);
         this.getDate = this.getDate.bind(this);
     }
+
 
     Change = e => {
         this.setState({
@@ -37,16 +40,17 @@ export default class AddInventory extends React.Component{
         addFormData(){
         axios
             
-            .post('http://localhost:5000/inventory/add',
+            .post('http://localhost:5000/sales/add',
             {
-                'name':this.state.name,
-                'price':this.state.price,
-                'qty':this.state.qty,
+                'description':this.state.ename,
+                'amount':this.state.amount,
+                'date':this.state.date,
                 'userid':this.state.userid,
+                'quantity': this.state.quantity,
             })
             .then(response =>{
                 console.log(response);
-                alert('Inventory Item added');
+                alert('sale added');
                 this.setState({redirect: true})
                 
             })
@@ -67,13 +71,13 @@ export default class AddInventory extends React.Component{
     };
 
     validate = e => {
-        if(this.state.name==""||this.state.price==""){
-            alert("Please add the name and pricee");
+        if(this.state.name==""||this.state.amount==""){
+            alert("Please fill name and amount form");
             return false;
         }
         if(this.state.date==""){
             this.setState(
-                {qty: 1,}
+                {date: this.getDate(),}
             )
             return true;
         }else{
@@ -99,31 +103,39 @@ export default class AddInventory extends React.Component{
                         <div className="col col-sm-10 container">
                             <div className="row">
                                 <div className="col col-sm-9">
-                                    <h3>Please input the details of the item here</h3>
+                                    <h3>Please input the details of your sale here</h3>
                                     <form>
                                         <div className="form-group">
-                                            <label>Name of the item</label>
+                                            <label>Name of the sale</label>
                                             <input type="text"
-                                            name = "name" onChange = {e => this.Change(e)}
-                                            className="form-control" placeholder="What are you adding" 
-                                            value={this.state.name} />
+                                            name = "ename" onChange = {e => this.Change(e)}
+                                            className="form-control" placeholder="What did  you sell" 
+                                            value={this.state.ename} />
                                         </div>
 
                                         <div className="form-group">
-                                            <label>Price</label>
-                                            <input type="number" name= "price" onChange = {e => this.Change(e)}
-                                             className="form-control" placeholder="What is the unit price" value={this.price}/>
+                                            <label>amount</label>
+                                            <input type="number" name= "amount" onChange = {e => this.Change(e)}
+                                             className="form-control" placeholder="How much did you sell it for" value={this.state.amount}/>
                                         </div>
 
                                         <div className="form-group">
                                             <label>Quantity</label>
-                                            <input type="number" name="qty" placeholder="How much of it did you buy" required 
+                                            <input type="number" name= "quantity" onChange = {e => this.Change(e)}
+                                             className="form-control" placeholder="Quantity sold" value={this.state.quantity}/>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Date</label>
+                                            <input type="date" name="date" placeholder="YYYY-MM-DD" required 
                                              
                                             className="form-control" onChange = {e => this.Change(e)}
-                                            title="" value={this.state.qty}/>
-                                            *Default quantity would be 1*
+                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.date}/>
+                                            *Default date would be the current date*
                                             
                                         </div>
+
+
 
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
                                         <button type="button" className="btn btn-success btn-block"
@@ -143,7 +155,7 @@ export default class AddInventory extends React.Component{
                     </div>
 
                 </div>
-                {this.state.redirect?<Redirect to="./inventory"/>:null}
+                {this.state.redirect?<Redirect to="./all-sales"/>:null}
                 
             </div>
         )

@@ -6,8 +6,8 @@
 
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
-const database = require("./database/db.js");    
+// const bodyParser = require("body-parser");
+// const database = require("./database/db.js");    
  
 const cors = require('cors');
 
@@ -33,7 +33,9 @@ app.get("/",(req,res) =>{
 //the rest of the routes
 const users = require("./routes/users.js")(app);
 const expenses = require("./routes/expenses.js")(app);
-const inventory = require("./routes/inventory.js")(app);
+const creditors = require("./routes/creditors.js")(app);
+const debtors = require("./routes/debtors.js")(app);
+const sales = require("./routes/sales.js")(app);
 
 
 //puts the requests in json form

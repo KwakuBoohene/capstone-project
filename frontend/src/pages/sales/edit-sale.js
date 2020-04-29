@@ -2,39 +2,38 @@ import React from "react";
 import {Redirect} from "react-router";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
-import Modal from "../../components/modal";
 import axios from 'axios';
 
-export default class EditInventory extends React.Component{
+export default class EditSale extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name : "",
-            price : "",
-            qty : "",
+            description : "",
+            amount : "",
+            quantity:"",
+            date : "",
             redirect: false,
-            userid: 1,
-            id: Number(localStorage.getItem('editinventory')),
-            message: "",
-            buttons: "",
+            userid: Number(localStorage.getItem('userid')),
+            id: Number(localStorage.getItem('editsales')),
         };
         this.Change = this.Change.bind(this);
         this.editFormData = this.editFormData.bind(this);
         this.onUpdate =  this.onUpdate.bind(this);
         this.validate = this.validate.bind(this);
-        
+        this.getDate = this.getDate.bind(this);
     }
 
-    getItemData(){
-                axios.get('http://localhost:5000/inventory/single/' + String(this.state.id)
+    getSalesData(){
+                axios.get('http://localhost:5000/sales/single/' + String(this.state.id)
         )
         .then(res => {
-        const item  = res.data;
-        item.map(item =>
+        const sale = res.data;
+        sale.map(sale =>
         this.setState({ 
-            name:item.name,
-            price:item.price,
-            qty: item.qty_in_stock
+            description:sale.description,
+            amount:sale.amount,
+            date: sale.date,
+            quantity: sale.quantity
              })
         )
 
@@ -45,8 +44,8 @@ export default class EditInventory extends React.Component{
     }
 
     componentDidMount(){
-        console.log(localStorage.removeItem('editinventory'))
-        this.getItemData();
+        console.log(localStorage.removeItem('editsales'))
+        this.getSalesData();
     }
     Change = e => {
         this.setState({
@@ -55,21 +54,26 @@ export default class EditInventory extends React.Component{
     
     };
 
-
+    getDate(){
+        var today = new Date().toISOString().split('T')[0];
+        var date =  String(today);
+        return date;
+    }
 
     editFormData(){
     axios
         
-        .post('http://localhost:5000/inventory/update',
+        .post('http://localhost:5000/sales/update',
         {
-            'name':this.state.name,
-            'price':this.state.price,
-            'qty':this.state.qty,
+            'description':this.state.description,
+            'amount':this.state.amount,
+            'date':this.state.date,
+            'quantity':this.state.quantity,
             'id':this.state.id,
         })
         .then(response =>{
             console.log(response);
-            alert('Inventory Item updated');
+            alert('Sale updated');
             this.setState({redirect: true})
             
         })
@@ -81,16 +85,16 @@ export default class EditInventory extends React.Component{
 
     }
 
-    deleteInventory(){
+    deleteSale(){
         axios
         
-        .post('http://localhost:5000/inventory/delete',
+        .post('http://localhost:5000/sales/delete',
         {
             'delete':this.state.id,
         })
         .then(response =>{
             console.log(response);
-            alert('inventory Item deleted');
+            alert('Sale entry deleted');
             this.setState({redirect: true})
             
         })
@@ -105,7 +109,7 @@ export default class EditInventory extends React.Component{
         this.setState({
         [e.target.name]: e.target.value
         });
-        
+        var item = e.target.name;
         console.log(this.state);
     };
 
@@ -131,42 +135,7 @@ export default class EditInventory extends React.Component{
         }
     };
 
-    
-    modalOpen(message,buttons){
-        this.setState({
-            message: message,
-            buttons: buttons,
-        })
-        var modal = document.getElementById("myModal");
-        // When the user clicks the button, open the modal 
-        modal.style.display = "block";
-    }
-
-// When the user clicks anywhere outside of the modal, close it
-modalClose = e => {
-    var modal = document.getElementById("myModal");
-    var main =  document.getElementById("main");
-    if(e.target == modal){
-        modal.style.display = "none";
-    }
-}
-
-
-
     render(){
-        var buttons =
-        <div className="">
-            <button className='btn btn-danger' onClick = {()=> this.modalClose()}>No</button>
-            <button className="btn btn-success" onClick={() => this.deleteInventory()}>Yes</button>
-        </div>
-
-        var buttons2 =
-        <div className="">
-            <button className='btn btn-danger' onClick = {()=> this.modalClose()}>No</button>
-            <button className="btn btn-success" onClick={this.onUpdate}>Yes</button>
-        </div>
-
-
         return(
             <div className="">
                 <Header/>
@@ -177,40 +146,45 @@ modalClose = e => {
                         <div className="col col-sm-10 container">
                             <div className="row">
                                 <div className="col col-sm-9">
-                                    <h3>Please input the details of your item here</h3>
+                                    <h3>Please Edit the details of your sale here</h3>
                                     <form>
                                         <div className="form-group">
-                                            <label>Name of the Item</label>
+                                            <label>Description of the Sale</label>
                                             <input type="text"
-                                            name = "name" onChange = {e => this.Change(e)}
-                                            className="form-control" placeholder="Inventory Item" 
-                                            value={this.state.name} />
+                                            name = "description" onChange = {e => this.Change(e)}
+                                            className="form-control" placeholder="What did you sell" 
+                                            value={this.state.description} />
                                         </div>
 
                                         <div className="form-group">
-                                            <label>Price</label>
-                                            <input type="number" name= "price" onChange = {e => this.Change(e)}
-                                             className="form-control" placeholder="How much are you spending on it"
-                                              value={this.state.price}/>
+                                            <label>amount</label>
+                                            <input type="number" name= "amount" onChange = {e => this.Change(e)}
+                                             className="form-control" placeholder="How much did you make from the sale" value={this.state.amount}/>
                                         </div>
 
                                         <div className="form-group">
-                                            <label>Quantity</label>
-                                            <input type="number" name="qty" placeholder="YYYY-MM-DD" required 
+                                            <label>Quantity Sold</label>
+                                            <input type="number" name= "quantity" onChange = {e => this.Change(e)}
+                                             className="form-control" placeholder="How much did you sell" value={this.state.quantity}/>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Date</label>
+                                            <input type="date" name="date" placeholder="YYYY-MM-DD" required 
                                              
                                             className="form-control" onChange = {e => this.Change(e)}
-                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.qty}/>
-                                            *Default quantity would be 1*
+                                            title="When did you make the sale?" value={this.state.date}/>
+                                            *Default date would be the current date*
                                             
                                         </div>
 
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
                                         <button type="button" className="btn btn-success btn-block"
-                                         onClick = {() => this.modalOpen('Do you want to save the changes you made ?',buttons2)}>
+                                         onClick = {this.onUpdate}>
                                             Update
                                         </button>
                                         <button type="button" className="btn btn-danger btn-block"
-                                         onClick = {() => this.modalOpen('Are you sure you want to Delete the message?',buttons)}>
+                                         onClick = {() => this.deleteSale()}>
                                             Delete
                                         </button>
                                         
@@ -227,8 +201,7 @@ modalClose = e => {
                     </div>
 
                 </div>
-                <Modal message={this.state.message} buttons={this.state.buttons}/>
-                {this.state.redirect?<Redirect to="./inventory"/>:null}
+                {this.state.redirect?<Redirect to="./sales"/>:null}
                 
             </div>
         )

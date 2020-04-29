@@ -4,16 +4,18 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
 
-export default class EditExpenses extends React.Component{
+export default class EditDebtor extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            ename : "",
+            dname : "",
             amount : "",
-            date : "",
+            dBorrow : "",
+            dPay:"",
+            vPay:"",
             redirect: false,
             userid: Number(localStorage.getItem('userid')),
-            id: Number(localStorage.getItem('editexpense')),
+            id: Number(localStorage.getItem('editdebtor')),
         };
         this.Change = this.Change.bind(this);
         this.editFormData = this.editFormData.bind(this);
@@ -22,16 +24,18 @@ export default class EditExpenses extends React.Component{
         this.getDate = this.getDate.bind(this);
     }
 
-    getExpenseData(){
-                axios.get('http://localhost:5000/expenses/single/' + String(this.state.id)
+    getDebtorData(){
+                axios.get('http://localhost:5000/debtors/single/' + String(this.state.id)
         )
         .then(res => {
-        const expense = res.data;
-        expense.map(expense =>
+        const debtor = res.data;
+        debtor.map(debtor =>
         this.setState({ 
-            ename:expense.expense_name,
-            amount:expense.amount,
-            date: expense.date
+                dname:debtor.name,
+                amount:debtor.amount,
+                dBorrow:debtor.dBorrow,
+                dPay: debtor.dPay,
+                vPay: debtor.vPay,
              })
         )
 
@@ -42,8 +46,8 @@ export default class EditExpenses extends React.Component{
     }
 
     componentDidMount(){
-        console.log(localStorage.removeItem('editexpense'))
-        this.getExpenseData();
+        console.log(localStorage.removeItem('editdebtor'))
+        this.getDebtorData();
     }
     Change = e => {
         this.setState({
@@ -61,37 +65,19 @@ export default class EditExpenses extends React.Component{
     editFormData(){
     axios
         
-        .post('http://localhost:5000/expenses/update',
+        .post('http://localhost:5000/debtors/update',
         {
-            'ename':this.state.ename,
-            'amount':this.state.amount,
-            'date':this.state.date,
-            'id':this.state.id,
-        })
-        .then(response =>{
-            console.log(response);
-            alert('expense updated');
-            this.setState({redirect: true})
-            
-        })
-        .catch(error =>{
-            console.log(error);
-            alert(error);
-        })
-
-
-    }
-
-    deleteExpense(){
-        axios
+        'name':this.state.dname,
+        'amount':this.state.amount,
+        'dBorrow':this.state.dBorrow,
+        'dPay': this.state.dPay,
+        'vPay': this.state.vPay,
+        'id':this.state.id,
         
-        .post('http://localhost:5000/expenses/delete',
-        {
-            'delete':this.state.id,
         })
         .then(response =>{
             console.log(response);
-            alert('expense deleted');
+            alert('Debtor updated');
             this.setState({redirect: true})
             
         })
@@ -100,17 +86,17 @@ export default class EditExpenses extends React.Component{
             alert(error);
         })
 
+
     }
+
 
     Change = e => {
         this.setState({
         [e.target.name]: e.target.value
         });
-        var item = e.target.name;
-        console.log(this.state);
     };
 
-    validate = e => {
+    validate = () => {
         if(this.state.name==""||this.state.amount==""){
             alert("Please fill name and amount form");
             return false;
@@ -125,7 +111,7 @@ export default class EditExpenses extends React.Component{
         }
     };
 
-    onUpdate = e => {
+    onUpdate = () => {
         var validate = this.validate();
         if(validate==true){
             this.editFormData();
@@ -143,42 +129,64 @@ export default class EditExpenses extends React.Component{
                         <div className="col col-sm-10 container">
                             <div className="row">
                                 <div className="col col-sm-9">
-                                    <h3>Please input the details of your expense here</h3>
+                                    <h3>Please input the details of your Debtor here</h3>
                                     <form>
                                         <div className="form-group">
-                                            <label>Name of the expense</label>
+                                            <label>Name</label>
                                             <input type="text"
-                                            name = "ename" onChange = {e => this.Change(e)}
-                                            className="form-control" placeholder="What are you spending on" 
-                                            value={this.state.ename} />
+                                            name = "dname" onChange = {e => this.Change(e)}
+                                            className="form-control" placeholder="Name of the person or the Business" 
+                                            value={this.state.dname} />
                                         </div>
 
                                         <div className="form-group">
-                                            <label>amount</label>
+                                            <label>Amount / Value</label>
                                             <input type="number" name= "amount" onChange = {e => this.Change(e)}
-                                             className="form-control" placeholder="How much are you spending" value={this.state.amount}/>
+                                             className="form-control" placeholder="Value of the work done or item(s) bought on credit" value={this.state.amount}/>
                                         </div>
 
+
                                         <div className="form-group">
-                                            <label>Date</label>
-                                            <input type="date" name="date" placeholder="YYYY-MM-DD" required 
+                                            <label>Date Recorded</label>
+                                            <input type="date" name="dBorrow" placeholder="YYYY-MM-DD" required 
                                              
                                             className="form-control" onChange = {e => this.Change(e)}
-                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.date}/>
+                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.dBorrow}/>
                                             *Default date would be the current date*
-                                            
                                         </div>
+
+                                        <div className="form-group">
+                                            <label>Deadline for Payment</label>
+                                            <input type="date" name="dPay" placeholder="YYYY-MM-DD" required 
+                                             
+                                            className="form-control" onChange = {e => this.Change(e)}
+                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.dPay}/>
+                                            *Default date would be the current date*
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Payment Made</label>
+                                                <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                                </div>
+                                                <select name="vPay" class="custom-select" id="inputGroupSelect01" onChange = {e => this.Change(e)} value = {this.state.vPay} >
+                                                    <option value='1' >Yes</option>
+                                                    <option selected value="0" >No</option>
+                                                    
+                                                </select>
+                                                </div>
+                                        </div>
+
+
+
+
 
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
                                         <button type="button" className="btn btn-success btn-block"
                                          onClick = {this.onUpdate}>
-                                            Update
+                                            Proceed
                                         </button>
-                                        <button type="button" className="btn btn-danger btn-block"
-                                         onClick = {() => this.deleteExpense()}>
-                                            Delete
-                                        </button>
-                                        
 
                                     
                                     </form>
@@ -192,7 +200,7 @@ export default class EditExpenses extends React.Component{
                     </div>
 
                 </div>
-                {this.state.redirect?<Redirect to="./expenses"/>:null}
+                {this.state.redirect?<Redirect to="./debtors"/>:null}
                 
             </div>
         )

@@ -82,8 +82,10 @@ h1{
     margin-top: 2%;
     margin-bottom: 2%;
 }
-.sidenav{
-    height: 92vh;
+#side , .sidenav{
+    height: 100%;
+    min-height:92vh;
+    position: fixed;
 }
 .sidenav, .sidenav ul , .sidenav ul li{
     background-color: #111;

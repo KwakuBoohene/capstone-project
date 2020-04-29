@@ -30,9 +30,10 @@ app.post('/expenses/add',function(req, res){
     var amount = req.body.amount;
     var date = req.body.date;
     var userid = req.body.userid;
+    var type = req.body.type
 
-    database.query("INSERT INTO expenses(expense_name,amount,date_recorded,user_id) VALUES (?,?,?,?)",
-    [ename,amount,date,userid],function(error,results){
+    database.query("INSERT INTO expenses(expense_name,amount,date_recorded,user_id,expense_type) VALUES (?,?,?,?,?)",
+    [ename,amount,date,userid,type],function(error,results){
         if(error)throw error;
         if(!error){
             res.json({message : "The item was successfully added to the database"});
@@ -73,11 +74,21 @@ app.post('/expenses/update',function(req,res){
 app.post('/expenses/month',function(req,res){
     var id = req.body.id;
 
-    database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(date_recorded,"%b") AS date FROM expenses WHERE user_id=? GROUP BY date',[id],function(error,results){
+    database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(date_recorded,"%b") AS date,date_recorded FROM expenses WHERE user_id=? GROUP BY date ORDER BY date_recorded ASC',[id],function(error,results){
         if(error) throw error;
         if(!error){
             res.end(JSON.stringify(results));
         }
     })
-}) 
+})
+
+app.get('/expense-types',function(req,res){
+    database.query('SELECT id,type FROM expense_type',function(error,results){
+        if(error)throw error;
+        if(!error){
+            res.end(JSON.stringify(results))
+        }
+    })
+})
+
 }

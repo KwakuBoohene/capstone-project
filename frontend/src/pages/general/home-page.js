@@ -28,10 +28,12 @@ export default class HomePage extends React.Component{
 
         return(
             <div>
+                
                 <Header startPage="/home" />
                 <div className="container-fluid">
                     <div className="row">
                         <SideNav/>
+                        
                         <section className="homepage-main col col-sm-10 container">
 
                             <br/>
@@ -46,7 +48,7 @@ export default class HomePage extends React.Component{
                                         <h6 class="card-subtitle mb-2 text-muted">See how much money has come in
                                         in the last 30 days</h6>
                                         <br/><br/><br/>
-                                        <button type="button" name="income" className="btn btn-success" onClick={this.redirectTo} >
+                                        <button type="button" name="sales" className="btn btn-success" onClick={this.redirectTo} >
                                             View info
                                         </button>
                                     </div>
@@ -66,11 +68,10 @@ export default class HomePage extends React.Component{
 
                                 <div class="card col col-sm-5" id="homepage-grid-item">
                                     <div class="card-body">
-                                        <h5 class="card-title">Expenses</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">See what you have spent on
-                                        in the last 30 days</h6>
+                                        <h5 class="card-title">Creditors</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">See who you owe or bought from on credit</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="expenses" >
+                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="creditors" >
                                         View info
                                         </button>
                                     </div>
@@ -78,11 +79,10 @@ export default class HomePage extends React.Component{
 
                                 <div class="card col col-sm-5" id="homepage-grid-item">
                                     <div class="card-body">
-                                        <h5 class="card-title">Inventory</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Check stock of the products
-                                        and resources you have available</h6>
+                                        <h5 class="card-title">Debtors</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">See who owes you or bought from you on credit</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="inventory">
+                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="debtors">
                                         View info
                                         </button>
                                     </div>
