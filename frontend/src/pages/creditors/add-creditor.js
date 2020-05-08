@@ -79,7 +79,7 @@ export default class AddCreditor extends React.Component{
             alert("Please fill out the name, amount and date of Borrowing on the Form");
             return false;
         }
-        if(this.state.date==""){
+        if(this.state.date===""){
             this.setState(
                 {date: this.getDate(),}
             )
@@ -91,7 +91,7 @@ export default class AddCreditor extends React.Component{
 
     onProceed = e => {
         var validate = this.validate();
-        if(validate==true){
+        if(validate===true){
             this.addFormData();
         }
     };
@@ -100,7 +100,7 @@ export default class AddCreditor extends React.Component{
         return(
             <div className="">
                 <Header/>
-                <div className="container-fluid">
+                <div className="">
                     <div className="row">
                         <SideNav/>
 

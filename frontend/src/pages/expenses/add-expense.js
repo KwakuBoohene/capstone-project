@@ -85,11 +85,11 @@ export default class AddExpenses extends React.Component{
     };
 
     validate = e => {
-        if(this.state.name==""||this.state.amount==""){
+        if(this.state.name===""||this.state.amount===""){
             alert("Please fill name and amount form");
             return false;
         }
-        if(this.state.date==""){
+        if(this.state.date===""){
             this.setState(
                 {date: this.getDate(),}
             )
@@ -101,7 +101,7 @@ export default class AddExpenses extends React.Component{
 
     onProceed = e => {
         var validate = this.validate();
-        if(validate==true){
+        if(validate===true){
             this.addFormData();
         }
     };
@@ -110,7 +110,7 @@ export default class AddExpenses extends React.Component{
         return(
             <div className="">
                 <Header/>
-                <div className="container-fluid">
+                <div className="">
                     <div  className="row">
                         <SideNav/>
 

@@ -68,13 +68,13 @@ export default class AllExpenses extends React.Component{
         return(
             <div className="">
                 <Header startPage="/home"/>
-                <div className="container-fluid">
+                <div className="">
                     <div className="row">
                     <SideNav/>
                         <div className="col col-sm-10 container">
                         
          
-                                        <table className="table">
+                                        <table className="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Expense</th>

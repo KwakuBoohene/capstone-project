@@ -36,6 +36,7 @@ const expenses = require("./routes/expenses.js")(app);
 const creditors = require("./routes/creditors.js")(app);
 const debtors = require("./routes/debtors.js")(app);
 const sales = require("./routes/sales.js")(app);
+const income = require("./routes/income.js")(app);
 
 
 //puts the requests in json form

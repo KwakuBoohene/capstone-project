@@ -26,8 +26,10 @@ import AllDebtors from "./pages/debtors/all-debtors";
 import AddDebtor from "./pages/debtors/add-debtor";
 import EditDebtor from "./pages/debtors/edit-debtor";
 
+import IncomeStatement from "./pages/reports/income";
 
-import expenseGraph from "./components/expenseGraph";
+
+// import SideNav2 from "./components/sidenav2";
 
 export default () => (
     
@@ -58,8 +60,9 @@ export default () => (
             <Route exact path = "/debtors" render = {() => <DebtorsPage/> }/>
             <Route exact path = "/add-debtor" render = {() => <AddDebtor/> }/>
             <Route exact path = "/edit-debtor" render = {() => <EditDebtor/> }/>
+            <Route exact path = "/statement-1" render = {() => <IncomeStatement/> }/>
 
-            <Route exact path = "/graph" component = {expenseGraph}/>
+            {/* <Route exact path = "/test" component = {SideNav2}/> */}
         </div>
 
     </BrowserRouter>

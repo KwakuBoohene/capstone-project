@@ -77,7 +77,7 @@ export default class DebtorsPage extends React.Component{
         return(
             <div className="">
                 <Header startPage="/home"/>
-                <div className="container-fluid">
+                <div className="">
                     <div className="row">
                     <SideNav/>
                         <div className="col col-sm-10 container">

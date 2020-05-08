@@ -122,50 +122,50 @@ modalClose = e => {
             <div className="">
                 <Header startPage="/"/>
 
-                <div class="container">
-                        <div class="row">
-                        <div class="col-lg-10 col-xl-9 mx-auto">
-                            <div class="card card-signin flex-row my-5">
-                            <div class="card-img-left d-none d-md-flex">
+                <div className="container">
+                        <div className="row">
+                        <div className="col-lg-10 col-xl-9 mx-auto">
+                            <div className="card card-signin flex-row my-5">
+                            <div className="card-img-left d-none d-md-flex">
                                 {/* <!-- Background image for card set in CSS! --> */}
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Register</h5>
-                                <form class="form-signin">
-                                <div class="form-label-group">
-                                    <input name="fname" type="text" id="inputUserame" class="form-control" placeholder="First Name"
+                            <div className="card-body">
+                                <h5 className="card-title text-center">Register</h5>
+                                <form className="form-signin">
+                                <div className="form-label-group">
+                                    <input name="fname" type="text" id="inputUserame" className="form-control" placeholder="First Name"
                                     value={this.state.fname} onChange = {this.Change} required autofocus/>
                                     <label for="inputUserame">First Name</label>
                                 </div>
 
-                                <div class="form-label-group">
-                                    <input name="lname" type="text" id="inputSurname" class="form-control" placeholder="Surname"
+                                <div className="form-label-group">
+                                    <input name="lname" type="text" id="inputSurname" className="form-control" placeholder="Surname"
                                     value={this.state.lname} onChange = {this.Change} required autofocus/>
                                     <label for="inputSurname">Surname</label>
                                 </div>
 
 
-                                <div class="form-label-group">
-                                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+                                <div className="form-label-group">
+                                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address"
                                     value={this.state.email} onChange = {this.Change} required name="email"/>
                                     <label for="inputEmail">Email address</label>
                                 </div>
                                 
                                 <hr/>
 
-                                <div class="form-label-group">
-                                    <input type="password" id="inputPassword" class="form-control" placeholder="Password"
+                                <div className="form-label-group">
+                                    <input type="password" id="inputPassword" className="form-control" placeholder="Password"
                                     value={this.state.password} onChange = {this.Change} name="password" required/>
                                     <label for="inputPassword">Password</label>
                                 </div>
                                 
-                                <div class="form-label-group">
-                                    <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password"
+                                <div className="form-label-group">
+                                    <input type="password" id="inputConfirmPassword" className="form-control" placeholder="Password"
                                     value={this.state.rpassword} onChange = {this.Change} name="rpassword" required/>
                                     <label for="inputConfirmPassword">Confirm password</label>
                                 </div>
 
-                                <button class="btn btn-lg btn-success btn-block text-uppercase" type="button" onClick= {this.onSignUpClicked}>Register</button>
+                                <button className="btn btn-lg btn-success btn-block text-uppercase" type="button" onClick= {this.onSignUpClicked}>Register</button>
 
                                 </form>
                             </div>

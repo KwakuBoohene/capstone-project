@@ -30,7 +30,7 @@ export default class HomePage extends React.Component{
             <div>
                 
                 <Header startPage="/home" />
-                <div className="container-fluid">
+                <div className="">
                     <div className="row">
                         <SideNav/>
                         
@@ -42,49 +42,49 @@ export default class HomePage extends React.Component{
                                             
                             <div className="row">
 
-                                <div class="card col col-sm-5" id="homepage-grid-item">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Money made/Income</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">See how much money has come in
+                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Money made/Income</h5>
+                                        <h6 className="card-subtitle mb-2 text-muted">See how much money has come in
                                         in the last 30 days</h6>
                                         <br/><br/><br/>
-                                        <button type="button" name="sales" className="btn btn-success" onClick={this.redirectTo} >
+                                        <Link type="button" name="sales" className="btn btn-success" to="/sales" >
                                             View info
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
 
-                                <div class="card col col-sm-5" id="homepage-grid-item">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Expenses</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">See what you have spent on
+                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Expenses</h5>
+                                        <h6 className="card-subtitle mb-2 text-muted">See what you have spent on
                                         in the last 30 days</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="expenses" >
+                                        <Link className="btn btn-success" type="button" to="/expenses" name="expenses" >
                                         View info
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
 
-                                <div class="card col col-sm-5" id="homepage-grid-item">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Creditors</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">See who you owe or bought from on credit</h6>
+                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Creditors</h5>
+                                        <h6 className="card-subtitle mb-2 text-muted">See who you owe or bought from on credit</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="creditors" >
+                                        <Link className="btn btn-success" type="button" to="/creditors" name="creditors" >
                                         View info
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
 
-                                <div class="card col col-sm-5" id="homepage-grid-item">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Debtors</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">See who owes you or bought from you on credit</h6>
+                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Debtors</h5>
+                                        <h6 className="card-subtitle mb-2 text-muted">See who owes you or bought from you on credit</h6>
                                         <br/><br/><br/>
-                                        <button className="btn btn-success" type="button" onClick={this.redirectTo} name="debtors">
+                                        <Link className="btn btn-success" type="button" to="/debtors" name="debtors">
                                         View info
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
 
