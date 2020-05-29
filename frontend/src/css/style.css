@@ -83,7 +83,7 @@ h1{
     margin-bottom: 2%;
 }
 #side , .sidenav{
-    height: 92vh;
+    height: 100vh;
     position: fixed;
 }
 

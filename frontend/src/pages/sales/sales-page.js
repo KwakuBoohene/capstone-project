@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
@@ -9,7 +9,7 @@ export default class SalesPage extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            id : Number(localStorage.getItem('userid')),
+            id : Number(sessionStorage.getItem('userid')),
             sales: [],
             redirect: false,
             redirectto: '',
@@ -45,7 +45,7 @@ export default class SalesPage extends React.Component{
 
 
     editSales(saleItem){
-        localStorage.setItem('editsales',saleItem)
+        sessionStorage.setItem('editsales',saleItem)
         this.setState({
             redirectto: './edit-sale'
         })

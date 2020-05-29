@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect,NavLink} from "react-router-dom";
 
 
 
@@ -32,26 +32,28 @@ export default class SideNav extends React.Component{
                 <section className ="sidenav col-lg-12 d-none d-sm-block">
                     <ul className ="list-group list-group-flush">
                         <li className ="list-group-item"> 
-                            <a name="home"  onClick={this.redirectTo}>Dashboard</a>
+                            
+                            <NavLink to="/home" activeClassName="selected" > Dashboard</NavLink>
                         </li>
                         {/* <li className="list-group-item" >
                             <a name="budget" onClick={this.redirectTo} >Budget</a>
                         </li> */}
                         <li className="list-group-item" >
-                            <a name ="sales"  onClick={this.redirectTo}>Sales</a>
+                            <NavLink to="/sales" activeClassName="selected">Sales</NavLink>
                         </li>
                         <li className="list-group-item">
-                            <a name="expenses" onClick={this.redirectTo}>Expenses</a>
+                            <NavLink to="/expenses" activeClassName="selected" >Expenses</NavLink>
                         </li>
                         <li className="list-group-item" >
-                            <a name="debtors" onClick={this.redirectTo}>Debtors</a>
+                            <NavLink to="/debtors" activeClassName="selected">Debtors</NavLink>
                         </li>
                         <li className="list-group-item" >
-                            <a name="creditors" onClick={this.redirectTo}>Creditors</a>
+                           <NavLink to="/creditors" activeClassName="selected">Creditors</NavLink>
                         </li>
                         <li className="list-group-item">
-                            <a name="statement-1" onClick={this.redirectTo}>Reports</a>
+                            <NavLink to="/statement-1" activeClassName="selected">Reports</NavLink>
                         </li>
+                        {this.props.printButton}
                     </ul>
 
                     

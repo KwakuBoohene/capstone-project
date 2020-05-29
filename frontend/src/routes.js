@@ -4,7 +4,7 @@ import {BrowserRouter,Route} from "react-router-dom";
 import LandingPage from "./pages/general/landing-page";
 import LoginPage from "./pages/general/login-page";
 import SignupPage from "./pages/general/signup-page";
-import HomePage from "./pages/general/home-page";
+
 
 import AddExpense from "./pages/expenses/add-expense";
 import ExpensesPage from "./pages/expenses/expenses-page";
@@ -27,6 +27,7 @@ import AddDebtor from "./pages/debtors/add-debtor";
 import EditDebtor from "./pages/debtors/edit-debtor";
 
 import IncomeStatement from "./pages/reports/income";
+import Dashboard from "./pages/general/dashboard";
 
 
 // import SideNav2 from "./components/sidenav2";
@@ -38,7 +39,7 @@ export default () => (
             <Route exact path = "/" render={() => <LandingPage  />} /> 
             <Route exact path = "/login" component = {LoginPage} />
             <Route exact path = "/signup" component = {SignupPage} />
-            <Route exact path = "/home" component = {HomePage} />
+            <Route exact path = "/home" component = {Dashboard} />
 
             <Route exact path = "/add-expense" component = {AddExpense} />
             <Route exact path = "/expenses" render = {() => <ExpensesPage/> }/>

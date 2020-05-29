@@ -19,37 +19,42 @@ export default class LoginPage extends React.Component{
        // this.checkFormData = this.checkFormData(this);
     };
 
-//logs in user details 
+//verifies user login  details 
 checkFormData(){
-// let formData = new FormData();
-// formData.append('email', this.state.email)
-// formData.append('password',this.state.password)
-
-
-
 axios
+//Makes a request to the API using an endpoint 
     .post('http://localhost:5000/user-search',
     {
         'email':this.state.email,
         'password': this.state.password
     })
+//Receives the response from the API and uses it to verify 
+// a user's details
     .then(res =>{
         const returnData = Object.keys(res.data).length;
         if(returnData==0){
+        //Tells the user that  the credentials they entered are invalid
             this.setState({
                 message :"User's email or password is invalid"
             });
             this.modalOpen();
         }else{
-            this.setState({
-                redirect :true,
-            });
-        
+        //Redirects the user  to their dashboard upon entering the valid credentials
+            
         const userid = Object.values(res.data)[0].id ;
         const fname = Object.values(res.data)[0].fname ;
-        localStorage.setItem('userid',userid)
-        localStorage.setItem('fname',fname)
-        console.log(localStorage)
+        sessionStorage.setItem('userid',userid)
+        sessionStorage.setItem('fname',fname)
+        // alert("Welcome"+fname)
+          this.setState({message:"Welcome"+" "+fname +" "+ "Loading.."});
+          this.modalOpen();
+         setTimeout(
+    function() {
+        this.setState({redirect: true});
+    }
+    .bind(this),
+    1000
+);
         }
     })
     .catch(error =>{
@@ -92,7 +97,7 @@ enterLogin = event => {
 onLogin = e => {
      
      if(this.validation()){
-         console.log("valid");
+         
           this.checkFormData();
      }
     
@@ -139,23 +144,17 @@ modalClose = e => {
                                 <h3 className="login-heading mb-4">Welcome back!</h3>
                                 <form>
                                     <div className="form-label-group">
-                                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required autofocus name="email" onKeyUp={this.enterLogin} onChange ={this.Change}/>
-                                    <label for="inputEmail">Email address</label>
+                                    <input type="email" id="email" className="form-control" placeholder="Email address" required autoFocus name="email" onKeyUp={this.enterLogin} onChange ={this.Change}/>
+                                    <label htmlFor="email">Email address</label>
                                     </div>
 
                                     <div className="form-label-group">
-                                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" name= "password" onKeyUp={this.enterLogin} onChange={this.Change} required/>
-                                    <label for="inputPassword">Password</label>
+                                    <input type="password" id="password" className="form-control" placeholder="Password" name= "password" onKeyUp={this.enterLogin} onChange={this.Change} required/>
+                                    <label htmlFor="password">Password</label>
                                     </div>
 
-                                    <div className="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                    <label className="custom-control-label" for="customCheck1">Remember password</label>
-                                    </div>
                                     <button type="button" className="btn btn-lg btn-success btn-block btn-login text-uppercase font-weight-bold mb-2" onClick={this.onLogin}>
                                     Sign in</button>
-                                    <div className="text-center">
-                                    <a className="small" href="#">Forgot password?</a></div>
                                 </form>
                                 </div>
                             </div>
@@ -170,50 +169,6 @@ modalClose = e => {
             {this.state.redirect?<Redirect to="./home"/>:null}
                 </div>
 
-                {/* <div className="container-fluid">
-                    <div className="row justify-content-sm-center">
-
-                        <form    className="login-page col col-sm-6">
-                            <h3>LOGIN TO YOUR ACCOUNT</h3>
-
-                            <div className="form-group">
-                                <label>Email address</label>
-                                <input type="email" className="form-control" placeholder="Enter email"
-                                name="email" onChange ={this.Change} />
-                            </div>
-
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input type="password" className="form-control" placeholder="Enter password"
-                                name= "password" onChange={this.Change} />
-                            </div>
-
-                            <div className="form-group">
-                                <div className="custom-control custom-checkbox">
-                                    <input type="checkbox" className="custom-control-input" id="customCheck1"  />
-                                    <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                                </div>
-                            </div>
-
-                           <button type="button" className="btn btn-danger btn-block" onClick = {this.onLogin} > Login</button>
-
-                            
-                            <p className="forgot-password text-right">
-                                Forgot <a href="#">password?</a>
-                            </p>
-                        </form>
-
-                        
-                    </div>
-
-                </div>
-
-
-
-            <Modal message={this.state.message}/>
-                
-
-            {this.state.redirect?<Redirect to="./home"/>:null} */}
             </div>
 
             

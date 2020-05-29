@@ -1,6 +1,6 @@
 import React from "react";
-import {Redirect} from "react-router";
-import {Link} from 'react-router-dom';
+import {Redirect,Link} from "react-router-dom";
+
 
 
 export default class Header extends React.Component{
@@ -23,13 +23,13 @@ export default class Header extends React.Component{
     }
 
     logout(){
-        localStorage.removeItem('userid');
-        localStorage.removeItem('fname')
+        sessionStorage.removeItem('userid');
+        sessionStorage.removeItem('fname')
         this.setState({
             redirectPage: '/',
             redirect:true,
         });
-        console.log(localStorage)
+        console.log(sessionStorage)
     }
     render(){
         return(
@@ -39,7 +39,7 @@ export default class Header extends React.Component{
                         <div className="col-sm-5">
                             
                                 <h2>
-                                    <a onClick={this.redirect} className="header-icon">MYACCOUNTS</a>
+                                   <Link to ="/" className="header-icon">MYACCOUNTS</Link>
                                 </h2>
                              
                         </div>

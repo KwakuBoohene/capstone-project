@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
@@ -13,8 +13,8 @@ export default class EditSale extends React.Component{
             quantity:"",
             date : "",
             redirect: false,
-            userid: Number(localStorage.getItem('userid')),
-            id: Number(localStorage.getItem('editsales')),
+            userid: Number(sessionStorage.getItem('userid')),
+            id: Number(sessionStorage.getItem('editsales')),
         };
         this.Change = this.Change.bind(this);
         this.editFormData = this.editFormData.bind(this);
@@ -44,7 +44,7 @@ export default class EditSale extends React.Component{
     }
 
     componentDidMount(){
-        console.log(localStorage.removeItem('editsales'))
+        console.log(sessionStorage.removeItem('editsales'))
         this.getSalesData();
     }
     Change = e => {

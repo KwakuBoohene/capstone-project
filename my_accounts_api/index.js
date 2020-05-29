@@ -6,7 +6,7 @@
 
 const express = require("express");
 const app = express();
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 // const database = require("./database/db.js");    
  
 const cors = require('cors');
@@ -21,10 +21,10 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false}) );
 
 // Parse JSON bodies (as sent by API clients)
-app.use(express.json());
+app.use(bodyParser.json());
 //test route
 app.get("/",(req,res) =>{
     res.json({message: "The api is working"});

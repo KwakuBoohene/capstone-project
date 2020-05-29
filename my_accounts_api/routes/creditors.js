@@ -6,7 +6,7 @@ const database = require("../database/db.js");
 //get all the users
 app.get('/creditors/:id',function (req,res){
     database.query(
-    'SELECT id,name,amount,DATE_FORMAT(d_o_borrowing,"%Y-%m-%d") AS dBorrow,DATE_FORMAT(d_o_payment,"%Y-%m-%d") AS dPay,made_payment FROM creditors where user_id = ?',
+    'SELECT id,name,amount,DATE_FORMAT(d_o_borrowing,"%Y-%m-%d") AS dBorrow,DATE_FORMAT(deadline,"%Y-%m-%d") AS dline,made_payment FROM creditors where user_id = ?',
     [req.params.id],
     function(error,results){
         if (error) throw error;
@@ -16,7 +16,7 @@ app.get('/creditors/:id',function (req,res){
 
 app.get('/creditors/single/:id',function (req,res){
     database.query(
-    'SELECT name,amount,DATE_FORMAT(d_o_borrowing,"%Y-%m-%d") AS dBorrow,DATE_FORMAT(d_o_payment,"%Y-%m-%d") AS dPay,made_payment AS vPay FROM creditors where id = ?',
+    'SELECT name,amount,DATE_FORMAT(d_o_borrowing,"%Y-%m-%d") AS dBorrow,DATE_FORMAT(deadline,"%Y-%m-%d") AS dline,made_payment AS vPay FROM creditors where id = ?',
     [req.params.id],
     function(error,results){
         if (error) throw error;
@@ -29,12 +29,12 @@ app.post('/creditors/add',function(req, res){
     var name = req.body.name;
     var amount = req.body.amount;
     var dBorrow = req.body.dBorrow;
-    var dPay = req.body.dPay;
+    var dline = req.body.dline;
     var vPay = req.body.vPay;
     var userid = req.body.userid;
 
-    database.query("INSERT INTO creditors(name,amount,d_o_borrowing,d_o_payment,made_payment,user_id) VALUES (?,?,?,?,?,?)",
-    [name,amount,dBorrow,dPay,vPay,userid],function(error,results){
+    database.query("INSERT INTO creditors(name,amount,d_o_borrowing,deadline,made_payment,user_id) VALUES (?,?,?,?,?,?)",
+    [name,amount,dBorrow,dline,vPay,userid],function(error,results){
         if(error)throw error;
         if(!error){
             res.json({message : "The item was successfully added to the database"});
@@ -61,12 +61,12 @@ app.post('/creditors/update',function(req,res){
     var name = req.body.name;
     var amount = req.body.amount;
     var dBorrow = req.body.dBorrow;
-    var dPay = req.body.dPay;
+    var dline = req.body.dline;
     var vPay = Number(req.body.vPay);
     
 
-    database.query("UPDATE creditors SET name = ?, amount = ?, d_o_borrowing = ?,d_o_payment = ?, made_payment = ? WHERE id = ?",
-    [name,amount,dBorrow,dPay,vPay,id],function(error,results){
+    database.query("UPDATE creditors SET name = ?, amount = ?, d_o_borrowing = ?,deadline = ?, made_payment = ? WHERE id = ?",
+    [name,amount,dBorrow,dline,vPay,id],function(error,results){
         if(error)throw error;
         if(!error){
             res.end(JSON.stringify(results));
@@ -91,7 +91,7 @@ app.post('/creditors/month-borrow',function(req,res){
 app.post('/creditors/month-pay',function(req,res){
     var id = req.body.id;
 
-    database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(d_o_payment,"%b") AS date,d_o_payment FROM creditors WHERE user_id=? GROUP BY date ORDER BY d_o_payment ASC',[id],function(error,results){
+    database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(deadline,"%b") AS date,deadline FROM creditors WHERE user_id=? GROUP BY date ORDER BY deadline ASC',[id],function(error,results){
         if(error) throw error;
         if(!error){
             res.end(JSON.stringify(results));

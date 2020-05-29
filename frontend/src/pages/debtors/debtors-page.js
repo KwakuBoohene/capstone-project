@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
@@ -9,7 +9,7 @@ export default class DebtorsPage extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            id : Number(localStorage.getItem('userid')),
+            id : Number(sessionStorage.getItem('userid')),
             debtors: [],
             redirect: false,
             redirectto: '',
@@ -45,7 +45,7 @@ export default class DebtorsPage extends React.Component{
 
 
     editDebtor(saleItem){
-        localStorage.setItem('editdebtor',saleItem)
+        sessionStorage.setItem('editdebtor',saleItem)
         this.setState({
             redirectto: './edit-debtor'
         })

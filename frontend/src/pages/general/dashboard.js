@@ -4,44 +4,25 @@ import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 
 
-export default class HomePage extends React.Component{
+export default class Dashboard extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {
-            redirect : false,
-            nextpage : ""
-        }
+        this.state = { redirect : false, nextpage : ""}
         this.redirectTo = this.redirectTo.bind(this);
     }
-  
    redirectTo = e => {
-
-       this.setState({
-           redirect : true,
-           nextpage: e.target.name,
-       })
+       this.setState({redirect : true,nextpage: e.target.name,})
    }
     render(){
-        
-
-        
-
         return(
-            <div>
-                
+            <div>   
                 <Header startPage="/home" />
                 <div className="">
                     <div className="row">
                         <SideNav/>
-                        
-                        <section className="homepage-main col col-sm-10 container">
-
-                            <br/>
-                            <h5>Welcome {localStorage.getItem('fname')}</h5>
-                            <br/>
-                                            
+                            <section className="homepage-main col col-sm-10 container"><br/>
+                            <h5>Welcome {sessionStorage.getItem('fname')}</h5><br/>
                             <div className="row">
-
                                 <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
                                     <div className="card-body">
                                         <h5 className="card-title">Money made/Income</h5>
@@ -53,7 +34,6 @@ export default class HomePage extends React.Component{
                                         </Link>
                                     </div>
                                 </div>
-
                                 <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
                                     <div className="card-body">
                                         <h5 className="card-title">Expenses</h5>

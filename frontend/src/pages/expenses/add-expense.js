@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
@@ -12,7 +12,7 @@ export default class AddExpenses extends React.Component{
             amount : "",
             date : "",
             redirect: false,
-            userid: Number(localStorage.getItem('userid')),
+            userid: Number(sessionStorage.getItem('userid')),
             expenseTypes:[],
             eType:"",
         };
@@ -66,7 +66,7 @@ export default class AddExpenses extends React.Component{
                 console.log(response);
                 alert('expense added');
                 this.setState({redirect: true})
-                
+                return true;
             })
             .catch(error =>{
                 console.log(error);

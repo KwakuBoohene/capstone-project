@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import ReactDOM from "react-dom";
 import Header from "../../components/header.js";
 import axios from 'axios';
@@ -67,7 +67,9 @@ modalClose = e => {
             })
     }
 
-    addFormData(){
+
+
+  addFormData  () {
         if(this.checkEmail){
             axios
             .post('http://localhost:5000/user-add',{
@@ -77,8 +79,17 @@ modalClose = e => {
                 'password': this.state.password,
             })
             .then(response =>{
-                console.log(response);
-               this.setState({redirect:true});
+          this.setState({message:"Account has been successfully formed! redirecting to login page..."});
+          this.modalOpen();
+         setTimeout(
+    function() {
+        this.setState({redirect: true});
+    }
+    .bind(this),
+    2000
+);
+           
+               
             })
             .catch(error =>{
                 console.log(error);
@@ -174,7 +185,7 @@ modalClose = e => {
                         </div>
                     </div>
   <Modal message={this.state.message}/>
-            {this.state.redirect?<Redirect to="./home"/>:null}
+            {this.state.redirect?<Redirect to="./login"/>:null}
             </div>
         );
     };

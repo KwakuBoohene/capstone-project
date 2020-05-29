@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default class LandingPage extends React.Component{
     render(){
@@ -10,7 +11,9 @@ export default class LandingPage extends React.Component{
                 <div className="container-fluid">
                     <div className="row">
                         <div className="header-icon col-sm-2">
-                            <h2>MYACCOUNTS</h2>
+                            <h2>
+                                <Link className="header-icon" to="/">MYACCOUNTS</Link>
+                            </h2>
                         </div>
                         <div className="col-sm-6">
                         </div>

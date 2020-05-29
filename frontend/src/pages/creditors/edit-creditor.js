@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
@@ -11,11 +11,11 @@ export default class EditCreditor extends React.Component{
             cname : "",
             amount : "",
             dBorrow : "",
-            dPay:"",
+            dline:"",
             vPay:"",
             redirect: false,
-            userid: Number(localStorage.getItem('userid')),
-            id: Number(localStorage.getItem('editcreditor')),
+            userid: Number(sessionStorage.getItem('userid')),
+            id: Number(sessionStorage.getItem('editcreditor')),
         };
         this.Change = this.Change.bind(this);
         this.editFormData = this.editFormData.bind(this);
@@ -34,7 +34,7 @@ export default class EditCreditor extends React.Component{
                 cname:creditor.name,
                 amount:creditor.amount,
                 dBorrow:creditor.dBorrow,
-                dPay: creditor.dPay,
+                dline: creditor.dline,
                 vPay: creditor.vPay,
              })
         )
@@ -46,7 +46,7 @@ export default class EditCreditor extends React.Component{
     }
 
     componentDidMount(){
-        console.log(localStorage.removeItem('editcreditor'))
+        console.log(sessionStorage.removeItem('editcreditor'))
         this.getCreditorData();
     }
     Change = e => {
@@ -70,7 +70,7 @@ export default class EditCreditor extends React.Component{
         'name':this.state.cname,
         'amount':this.state.amount,
         'dBorrow':this.state.dBorrow,
-        'dPay': this.state.dPay,
+        'dline': this.state.dline,
         'vPay': this.state.vPay,
         'id':this.state.id,
         
@@ -176,10 +176,10 @@ export default class EditCreditor extends React.Component{
 
                                         <div className="form-group">
                                             <label>Deadline for Payment</label>
-                                            <input type="date" name="dPay" placeholder="YYYY-MM-DD" required 
+                                            <input type="date" name="dline" placeholder="YYYY-MM-DD" required 
                                              
                                             className="form-control" onChange = {e => this.Change(e)}
-                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.dPay}/>
+                                            title="Enter a date in this format YYYY-MM-DD" value={this.state.dline}/>
                                             *Default date would be the current date*
                                         </div>
 

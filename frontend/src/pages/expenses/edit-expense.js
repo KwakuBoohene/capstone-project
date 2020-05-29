@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/header";
 import SideNav from "../../components/sidenav";
 import axios from 'axios';
@@ -12,8 +12,10 @@ export default class EditExpenses extends React.Component{
             amount : "",
             date : "",
             redirect: false,
-            userid: Number(localStorage.getItem('userid')),
-            id: Number(localStorage.getItem('editexpense')),
+            userid: Number(sessionStorage.getItem('userid')),
+            id: Number(sessionStorage.getItem('editexpense')),
+            expenseTypes:[],
+            eType:"",
         };
         this.Change = this.Change.bind(this);
         this.editFormData = this.editFormData.bind(this);
@@ -31,7 +33,8 @@ export default class EditExpenses extends React.Component{
         this.setState({ 
             ename:expense.expense_name,
             amount:expense.amount,
-            date: expense.date
+            date: expense.date,
+            eType:expense.expense_type
              })
         )
 
@@ -41,8 +44,23 @@ export default class EditExpenses extends React.Component{
         });
     }
 
+    componentWillMount(){
+                axios
+            
+            .get('http://localhost:5000/expense-types',
+           )
+            .then(res => {
+            const expenseTypes = res.data;
+            this.setState({ expenseTypes });
+        
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    
     componentDidMount(){
-        console.log(localStorage.removeItem('editexpense'))
+        console.log(sessionStorage.removeItem('editexpense'))
         this.getExpenseData();
     }
     Change = e => {
@@ -67,6 +85,7 @@ export default class EditExpenses extends React.Component{
             'amount':this.state.amount,
             'date':this.state.date,
             'id':this.state.id,
+            'type':this.state.eType,
         })
         .then(response =>{
             console.log(response);
@@ -106,8 +125,7 @@ export default class EditExpenses extends React.Component{
         this.setState({
         [e.target.name]: e.target.value
         });
-        var item = e.target.name;
-        console.log(this.state);
+       
     };
 
     validate = e => {
@@ -169,15 +187,25 @@ export default class EditExpenses extends React.Component{
                                             
                                         </div>
 
+                                        <div className="form-group">
+                                            <label>Type of Expense</label>
+                                                <select id="inputState" className="form-control" name="eType" onChange = {e => this.Change(e)} 
+                                                placeholder="what description best fits your expense" value={this.state.eType}>
+                                                    {this.state.expenseTypes.map(expenses =>
+                                                    <option value={expenses.id}>{expenses.type}</option> )}
+                                                </select>
+                                            
+                                        </div>
+
                                         {/* <input type="submit" value="Proceed" className = "btn btn-danger btn-block"/> */}
                                         <button type="button" className="btn btn-success btn-block"
                                          onClick = {this.onUpdate}>
                                             Update
                                         </button>
-                                        <button type="button" className="btn btn-danger btn-block"
+                                        {/* <button type="button" className="btn btn-danger btn-block"
                                          onClick = {() => this.deleteExpense()}>
                                             Delete
-                                        </button>
+                                        </button> */}
                                         
 
                                     

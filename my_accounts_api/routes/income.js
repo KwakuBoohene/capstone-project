@@ -12,7 +12,7 @@ app.post('/istatement/expenses',function(req, res){
     [userid,year],function(error,results){
         if(error)throw error;
         if(!error){
-            res.end(JSON.stringify(results));
+            res.end(JSON.stringify(results,null," "));
         }
     });
 })

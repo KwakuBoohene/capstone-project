@@ -10,17 +10,17 @@ app.get('/expenses/:id',function (req,res){
     [req.params.id],
     function(error,results){
         if (error) throw error;
-        res.end(JSON.stringify(results));
+        res.end(JSON.stringify(results,null," "));
     })    
 });
 
 app.get('/expenses/single/:id',function (req,res){
     database.query(
-    'SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%Y-%m-%d") AS date,expense_id FROM expenses where expense_id = ?',
+    'SELECT expense_name,amount,DATE_FORMAT(date_recorded,"%Y-%m-%d") AS date,expense_id,expense_type FROM expenses where expense_id = ?',
     [req.params.id],
     function(error,results){
         if (error) throw error;
-        res.end(JSON.stringify(results));
+        res.end(JSON.stringify(results,null," "));
     })    
 });
 
@@ -60,11 +60,12 @@ app.post('/expenses/update',function(req,res){
     var ename = req.body.ename;
     var amount = req.body.amount;
     var date = req.body.date;
+    var type = req.body.type;
 
-    database.query("UPDATE expenses SET expense_name = ?, amount = ?, date_recorded = ? WHERE expense_id = ?",[ename,amount,date,id],function(error,results){
+    database.query("UPDATE expenses SET expense_name = ?, amount = ?, date_recorded = ?, expense_type= ? WHERE expense_id = ?",[ename,amount,date,type,id],function(error,results){
         if(error)throw error;
         if(!error){
-            res.end(JSON.stringify(results));
+            res.end(JSON.stringify(results,null," "));
         }
 
     })
@@ -77,7 +78,7 @@ app.post('/expenses/month',function(req,res){
     database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(date_recorded,"%b") AS date,date_recorded FROM expenses WHERE user_id=? GROUP BY date ORDER BY date_recorded ASC',[id],function(error,results){
         if(error) throw error;
         if(!error){
-            res.end(JSON.stringify(results));
+            res.end(JSON.stringify(results,null," "));
         }
     })
 })
@@ -86,7 +87,7 @@ app.get('/expense-types',function(req,res){
     database.query('SELECT id,type FROM expense_type',function(error,results){
         if(error)throw error;
         if(!error){
-            res.end(JSON.stringify(results))
+            res.end(JSON.stringify(results,null," "))
         }
     })
 })

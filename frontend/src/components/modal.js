@@ -23,7 +23,7 @@ render(){
     return(
                     <div className="">
                         {/* <!-- The Modal -->  */}
-                        <div id="myModal" class="modal" >
+                        <div id="myModal" className="modal" >
                             <div className="container">
                                 <div className="row">
                         {/* <!-- Modal content --> */}

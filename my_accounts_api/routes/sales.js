@@ -10,7 +10,7 @@ app.get('/sales/:id',function (req,res){
     [req.params.id],
     function(error,results){
         if (error) throw error;
-        res.end(JSON.stringify(results));
+        res.end(JSON.stringify(results,null," "));
     })    
 });
 
@@ -20,7 +20,7 @@ app.get('/sales/single/:id',function (req,res){
     [req.params.id],
     function(error,results){
         if (error) throw error;
-        res.end(JSON.stringify(results));
+        res.end(JSON.stringify(results,null," "));
     })    
 });
 
@@ -66,7 +66,7 @@ app.post('/sales/update',function(req,res){
     database.query("UPDATE sales SET description = ?, amount = ?, date_recorded = ?,quantity = ? WHERE sale_id = ?",[description,amount,date,quantity,id],function(error,results){
         if(error)throw error;
         if(!error){
-            res.end(JSON.stringify(results));
+            res.end(JSON.stringify(results,null," "));
         }
 
     })
@@ -79,7 +79,7 @@ app.post('/sales/month',function(req,res){
     database.query('SELECT SUM(amount) AS amount,DATE_FORMAT(date_recorded,"%b") AS date,date_recorded FROM sales WHERE user_id=? GROUP BY date ORDER BY date_recorded ASC',[id],function(error,results){
         if(error) throw error;
         if(!error){
-            res.end(JSON.stringify(results));
+            res.end(JSON.stringify(results,null," "));
         }
     })
 })

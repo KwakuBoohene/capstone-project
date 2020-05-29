@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 25, 2020 at 12:48 PM
+-- Generation Time: May 29, 2020 at 01:10 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -27,6 +27,64 @@ USE `myaccounts`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `creditors`
+--
+
+DROP TABLE IF EXISTS `creditors`;
+CREATE TABLE IF NOT EXISTS `creditors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `amount` int(10) DEFAULT NULL,
+  `d_o_borrowing` date DEFAULT NULL,
+  `deadline` date DEFAULT NULL,
+  `made_payment` tinyint(1) DEFAULT 0,
+  `user_id` int(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `creditors`
+--
+
+INSERT INTO `creditors` (`id`, `name`, `amount`, `d_o_borrowing`, `deadline`, `made_payment`, `user_id`) VALUES
+(1, 'AB & Crentsil Partners', 55, '2020-02-04', '2020-03-05', 1, 1),
+(2, 'Kasoa Foods', 1000, '2020-02-10', NULL, 0, 1),
+(3, 'Creditor 3', 44, '2020-04-28', '2020-05-06', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `debtors`
+--
+
+DROP TABLE IF EXISTS `debtors`;
+CREATE TABLE IF NOT EXISTS `debtors` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `amount` int(10) DEFAULT NULL,
+  `d_o_borrowing` date DEFAULT NULL,
+  `deadline` date DEFAULT NULL,
+  `received_payment` tinyint(1) DEFAULT 0,
+  `user_id` int(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `debtors`
+--
+
+INSERT INTO `debtors` (`id`, `name`, `amount`, `d_o_borrowing`, `deadline`, `received_payment`, `user_id`) VALUES
+(1, 'Variety Foods', 54, '2020-04-15', '2020-04-14', 1, 1),
+(2, 'Kasoa Foods', 1000, '2020-02-10', NULL, NULL, NULL),
+(3, 'Fable Fast Foods', 600, '2020-04-15', '2020-04-21', 1, 1),
+(4, 'Economical Fast Foods', 44, '2020-04-08', NULL, 0, NULL),
+(5, 'Rice and Stew Purchases', 600, '2020-04-30', '2020-05-06', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `expenses`
 --
 
@@ -37,89 +95,53 @@ CREATE TABLE IF NOT EXISTS `expenses` (
   `amount` int(10) DEFAULT NULL,
   `date_recorded` date DEFAULT NULL,
   `user_id` int(6) DEFAULT NULL,
+  `expense_type` int(6) DEFAULT NULL,
   PRIMARY KEY (`expense_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+  KEY `user_id` (`user_id`),
+  KEY `expenses_ibfk_2` (`expense_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `expenses`
 --
 
-INSERT INTO `expenses` (`expense_id`, `expense_name`, `amount`, `date_recorded`, `user_id`) VALUES
-(1, 'Rice', 200, '2020-03-03', 1),
-(2, 'Yam', 500, '2020-03-06', 1),
-(4, 'Oil', 70, '2020-03-11', 1),
-(5, 'Yam Balls', 500, '2020-02-11', 1),
-(6, 'Vanilla Essence', 44, '2020-02-18', 1),
-(7, 'Potatoes and Gravy', 600, '2020-02-19', 2),
-(8, 'Rumbaba Cake', 300, '2020-02-29', 2),
-(9, 'Maggi Sauce and Onions', 600, '2020-03-03', 2),
-(10, 'Agushi Stew', 300, '2020-03-03', 2),
-(11, 'edibles', 500, '2020-03-18', 1),
-(12, 'Watches', 500, '2020-01-08', 1),
-(13, 'Bags', 600, '2020-01-22', 1),
-(14, 'rice', 60, '2020-03-18', 1);
+INSERT INTO `expenses` (`expense_id`, `expense_name`, `amount`, `date_recorded`, `user_id`, `expense_type`) VALUES
+(4, 'Oil', 70, '2020-03-11', 1, 2),
+(6, 'Vanilla Essence', 44, '2020-02-18', 1, 2),
+(7, 'Potatoes and Gravy', 600, '2020-02-19', 2, 2),
+(8, 'Rumbaba Cake', 300, '2020-02-29', 2, 2),
+(9, 'Maggi Sauce and Onions', 600, '2020-03-03', 2, 2),
+(10, 'Agushi Stew', 300, '2020-03-03', 2, 2),
+(14, 'rice', 60, '2020-03-18', 1, 2),
+(15, 'cabbage stew', 45, '2020-03-25', 1, 2),
+(17, 'Gari', 100, '2020-03-17', 1, 2),
+(18, 'edibles', 66, '2019-05-06', 1, 2),
+(19, 'rice', 700, '2020-04-17', 1, 4),
+(20, 'rice', 555, '2020-06-10', 1, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `inventory`
+-- Table structure for table `expense_type`
 --
 
-DROP TABLE IF EXISTS `inventory`;
-CREATE TABLE IF NOT EXISTS `inventory` (
+DROP TABLE IF EXISTS `expense_type`;
+CREATE TABLE IF NOT EXISTS `expense_type` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `price` int(10) DEFAULT NULL,
-  `qty_in_stock` int(10) DEFAULT NULL,
-  `user_id` int(6) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  `type` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `inventory`
+-- Dumping data for table `expense_type`
 --
 
-INSERT INTO `inventory` (`id`, `name`, `price`, `qty_in_stock`, `user_id`) VALUES
-(1, 'Rice', 45, 4, 1),
-(2, 'Gari and Beans', 44, 1, 1),
-(3, 'Cups', 50, 45, 1),
-(4, 'Bowls', 15, 20, 2),
-(5, 'Plates', 5, 50, 1),
-(6, 'Plates', 10, 50, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payables`
---
-
-DROP TABLE IF EXISTS `payables`;
-CREATE TABLE IF NOT EXISTS `payables` (
-  `payables_id` int(11) NOT NULL AUTO_INCREMENT,
-  `amount` int(10) DEFAULT NULL,
-  `paydate` date DEFAULT NULL,
-  `user_id` int(6) DEFAULT NULL,
-  PRIMARY KEY (`payables_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `receivables`
---
-
-DROP TABLE IF EXISTS `receivables`;
-CREATE TABLE IF NOT EXISTS `receivables` (
-  `receivables_id` int(11) NOT NULL AUTO_INCREMENT,
-  `amount` int(10) DEFAULT NULL,
-  `paydate` date DEFAULT NULL,
-  `user_id` int(6) DEFAULT NULL,
-  PRIMARY KEY (`receivables_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `expense_type` (`id`, `type`, `description`) VALUES
+(1, 'Administrative Expense', 'These are expenses which are not directly tied to the service you render or the goods you buy and sell or the goods you produce and sell'),
+(2, 'Service/Production/Merchandise Expense', 'This cost includes the cost incurred as a result of a service you rendered (if your business is the type which renders services) or the cost you incurred as a result of buying a product to sell (if you are in the merchandising business)'),
+(3, 'Other', NULL),
+(4, 'Utility expenses', 'This refers to any expense on amenities like water, electricity and sewage');
 
 -- --------------------------------------------------------
 
@@ -130,14 +152,25 @@ CREATE TABLE IF NOT EXISTS `receivables` (
 DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
   `sale_id` int(6) NOT NULL AUTO_INCREMENT,
+  `description` text DEFAULT NULL,
   `amount` int(10) DEFAULT NULL,
+  `date_recorded` date DEFAULT NULL,
   `quantity` int(9) DEFAULT NULL,
-  `item_id` int(6) DEFAULT NULL,
-  `user_id` int(6) DEFAULT NULL,
+  `user_id` int(6) NOT NULL,
   PRIMARY KEY (`sale_id`),
-  KEY `item_id` (`item_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`sale_id`, `description`, `amount`, `date_recorded`, `quantity`, `user_id`) VALUES
+(1, 'plates of onion stew', 600, '2020-03-17', 9, 1),
+(2, 'Rice', 500, '2020-03-10', 60, 1),
+(3, 'Gari and Soakings', 700, '2020-04-23', 5, 1),
+(4, 'rice', 700, '2020-04-29', 7, 1),
+(5, 'rice and gari', 500, '2019-09-17', 50, 1);
 
 -- --------------------------------------------------------
 
@@ -153,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -163,42 +196,37 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`) VALUES
 (1, 'Kwaku', 'Boohene', 'kwaku.kwayisi@gmail.com', 'kwaku.boohene1'),
 (2, 'Frank', 'Doe', 'frank.doe@mail.com', 'frank.doe1'),
 (5, 'Jane', 'Doe', 'jane.doe@gmail.com', 'jane.doe1'),
-(6, 'Sean', 'Paul', 'sean.paul@gmail.com', 'sean.paul1');
+(6, 'Sean', 'Paul', 'sean.paul@gmail.com', 'sean.paul1'),
+(12, 'Yaw', 'Ankrah', 'yaw.ankrah@gmail.com', 'yawisgreat');
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `creditors`
+--
+ALTER TABLE `creditors`
+  ADD CONSTRAINT `creditors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `debtors`
+--
+ALTER TABLE `debtors`
+  ADD CONSTRAINT `debtors_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `expenses`
 --
 ALTER TABLE `expenses`
-  ADD CONSTRAINT `expenses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `payables`
---
-ALTER TABLE `payables`
-  ADD CONSTRAINT `payables_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `receivables`
---
-ALTER TABLE `receivables`
-  ADD CONSTRAINT `receivables_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `expenses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `expenses_ibfk_2` FOREIGN KEY (`expense_type`) REFERENCES `expense_type` (`id`);
 
 --
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
-  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`id`),
-  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
