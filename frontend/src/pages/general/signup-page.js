@@ -130,18 +130,48 @@ modalClose = e => {
 
     render(){
         return(
-            <div className="">
-                <Header startPage="/"/>
+   <div className="body signup-page">
+         <Header startPage="/"/>
 
-                <div className="container">
+         <div className="flex-center start-space">
+         <form action="" className="signup-form p-5">
+            
+            <div className="signup-header">
+               <h5 className="">Create An Account</h5>
+            </div>
+
+            <div className="username">
+               <div className="form-label-group mr-2">
+                  <label for="inputUserame">First Name</label><br/>
+                  <input name="fname" type="text" id="inputUserame" className="form-control" placeholder="First Name"
+                  value={this.state.fname} onChange = {this.Change} required autofocus/>            
+               </div>
+
+               <div className="form-label-group">
+                  <label for="inputSurname">Surname</label><br/>
+                  <input name="lname" type="text" id="inputSurname" className="form-control" placeholder="Surname"
+                  value={this.state.lname} onChange = {this.Change} required autofocus/>
+               </div>
+            </div>
+
+            
+            
+
+         </form>
+
+         </div>
+
+
+
+                {/* <div className="container">
                         <div className="row">
                         <div className="col-lg-10 col-xl-9 mx-auto">
                             <div className="card card-signin flex-row my-5">
                             <div className="card-img-left d-none d-md-flex">
-                                {/* <!-- Background image for card set in CSS! --> */}
+                          
                             </div>
                             <div className="card-body">
-                                <h5 className="card-title text-center">Register</h5>
+                                
                                 <form className="form-signin">
                                 <div className="form-label-group">
                                     <input name="fname" type="text" id="inputUserame" className="form-control" placeholder="First Name"
@@ -183,7 +213,7 @@ modalClose = e => {
                             </div>
                         </div>
                         </div>
-                    </div>
+                    </div> */}
   <Modal message={this.state.message}/>
             {this.state.redirect?<Redirect to="./login"/>:null}
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {BrowserRouter,Route} from "react-router-dom";
 
 import LandingPage from "./pages/general/landing-page";
@@ -32,12 +32,21 @@ import Dashboard from "./pages/general/dashboard";
 
 // import SideNav2 from "./components/sidenav2";
 
-export default () => (
+function Routes (){
+     const [user,setUser] = useState(false);
+
+     const handleLogin = e => {
+          // e.preventDefault();
+          setUser(true);
+     }
+
+
+return (
     
     <BrowserRouter>
         <div>
             <Route exact path = "/" render={() => <LandingPage  />} /> 
-            <Route exact path = "/login" component = {LoginPage} />
+            <Route exact path = "/login"  handleLogin={handleLogin} render={props => <LoginPage {...props} user={user.toString()} handleLogin={handleLogin} />} />
             <Route exact path = "/signup" component = {SignupPage} />
             <Route exact path = "/home" component = {Dashboard} />
 
@@ -66,5 +75,8 @@ export default () => (
             {/* <Route exact path = "/test" component = {SideNav2}/> */}
         </div>
 
-    </BrowserRouter>
-)
+    </BrowserRouter>     
+     )
+}
+
+export default Routes ; 

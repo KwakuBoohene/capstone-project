@@ -33,28 +33,48 @@ export default class Header extends React.Component{
     }
     render(){
         return(
-            <section className="header">
-                <div className="container-fluid">
-                    <div className="row justify-content-sm-center">
-                        <div className="col-sm-5">
+            // <section className="header">
+            //     <div className="container-fluid">
+            //         <div className="row justify-content-sm-center">
+            //             <div className="col-sm-5">
                             
-                                <h2>
-                                   <Link to ="/" className="header-icon">MYACCOUNTS</Link>
-                                </h2>
+            //                     <h2>
+            //                        <Link to ="/" className="header-icon">MYACCOUNTS</Link>
+            //                     </h2>
                              
-                        </div>
-                        <div className="col-sm-5">
+            //             </div>
+            //             <div className="col-sm-5">
 
-                        </div>
+            //             </div>
 
-                        <div className="col-sm-2">
-                            <Link to='/' className="header-links btn btn-danger" onClick = {this.logout}>Logout</Link>
-                        </div>
-                    </div>
-                </div>
+            //             <div className="col-sm-2">
+            //                 <Link to='/' className="header-links btn btn-danger" onClick = {this.logout}>Logout</Link>
+            //             </div>
+            //         </div>
+            //     </div>
 
-                {this.state.redirect?<Redirect to={this.state.redirectPage}/>:null}
-            </section>
+            //     {this.state.redirect?<Redirect to={this.state.redirectPage}/>:null}
+            // </section>
+
+         <section className="header">
+            <div className="header-icon ">
+               <div className="option m-3">
+                  <Link className="header-text" to="/">MYACCOUNTS</Link>
+               </div>
+            </div>
+
+            <div className="header-section">
+               <div className="option m-3">
+                  <Link className="header-login" to="/login">Log in</Link>
+               </div>
+            </div>
+
+            <div className="header-section">
+               <div className="option m-3">
+                  <Link className="header-signup" to="/signup">Sign Up</Link>
+               </div>
+            </div>
+         </section>
         )
     }
 }

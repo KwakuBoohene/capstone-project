@@ -11,6 +11,7 @@ export default class LoginPage extends React.Component{
             password: '',
             redirect: false,
             message: "invalid input details",
+            login: false,
 
         };
         this.onLogin = this.onLogin.bind(this);
@@ -46,7 +47,9 @@ axios
         sessionStorage.setItem('userid',userid)
         sessionStorage.setItem('fname',fname)
         // alert("Welcome"+fname)
+        this.props.handleLogin();
           this.setState({message:"Welcome"+" "+fname +" "+ "Loading.."});
+          
           this.modalOpen();
          setTimeout(
     function() {
