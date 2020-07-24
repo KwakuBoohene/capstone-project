@@ -59,7 +59,7 @@ export default class Header extends React.Component{
          <section className="header">
             <div className="header-icon ">
                <div className="option m-3">
-                  <Link className="header-text" to="/">MYACCOUNTS</Link>
+                  <Link className="header-text very-bold" to="/">MYACCOUNTS</Link>
                </div>
             </div>
 

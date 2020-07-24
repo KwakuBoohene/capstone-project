@@ -1,7 +1,6 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
-import Header from "../../components/header";
-import SideNav from "../../components/sidenav";
+import Page from "../general/page";
 import axios from 'axios';
 
 
@@ -74,13 +73,9 @@ export default class DebtorsPage extends React.Component{
     }
     
     render(){
-        return(
-            <div className="">
-                <Header startPage="/home"/>
-                <div className="">
-                    <div className="row">
-                    <SideNav/>
-                        <div className="col col-sm-10 container">
+       let content = <div className="">
+
+<div className="col col-sm-10 container">
                                         <table className="table">
                                             <thead>
                                                 <tr>
@@ -131,8 +126,12 @@ export default class DebtorsPage extends React.Component{
                             </div>
                             {this.state.redirect?<Redirect to={this.state.redirectto}/>:null}
                         </div>
-                    </div>
-                </div>
+   
+       </div>
+        return(
+            <div className="">
+               <Page main={content} />
+               
             </div>
         )
     }

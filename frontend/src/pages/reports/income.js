@@ -1,6 +1,5 @@
 import React from "react";
-import Header from "../../components/header";
-import SideNav from "../../components/sidenav";
+import Page from '../general/page';
 import axios from "axios";
 import html2canvas from "html2canvas";
 import * as jsPDF from 'jspdf'
@@ -123,12 +122,9 @@ export default class IncomeStatement extends React.Component{
                 </button>
             </li>
         )
-        return(
-            <div className="">
-                <Header startpage="/home"/>
-                <div className="row">
-                    <SideNav printButton= {printButton}/>
-                    <section className="col-sm-8 container" >
+
+        const content = <div className="">
+            <section className="col-sm-8 container" >
                     <div className="col-sm-12" id ='divToPrint'>
                         <h2 className="text-center">Income statement for the year {year}</h2>
                         <table className="table ">
@@ -201,8 +197,10 @@ export default class IncomeStatement extends React.Component{
                     <br/>
                     </section>
                     
-                </div>
-                
+        </div>
+        return(
+            <div className="">
+                  <Page main={content}/>
                 
             </div>
         )

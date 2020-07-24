@@ -1,7 +1,6 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
-import Header from "../../components/header";
-import SideNav from "../../components/sidenav";
+import Page from '../general/page';
 import axios from 'axios';
 import SalesGraph from '../../components/salesGraph';
 
@@ -73,70 +72,70 @@ export default class SalesPage extends React.Component{
         })
     }
     
-    render(){
+    render()
+    {
+      let content = <div>
+
+<div className="main">
+                        
+                        <SalesGraph id={this.state.id}/>
+                    
+     
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Descriptionn</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Date Recorded</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        { this.state.sales.slice(0, 3).map(sales => 
+                                            <tr name={String(sales.sale_id)}>
+                                                <td>{sales.description}</td>
+                                                <td> GHS {sales.amount}.00</td>
+                                                <td> {sales.quantity}</td>
+                                                <td>{sales.date}</td>
+                                                <td className="hidden-managers">
+                                                <button type="button" className="btn btn-success" onClick= {() => this.editSales(sales.sale_id)}>
+                                                    Edit
+                                                </button>
+                                                </td>
+                                            </tr>
+                                            )
+                                        }
+                                        </tbody>
+                                  </table>
+                        
+                        <div className="row">
+                            <div className="col-4">
+                                <button onClick = {this.onAddSales}
+                                type="button" className="btn btn-danger btn-block">
+                                    add Sales
+                                </button>
+                            </div>
+
+                            <div className="col-4">
+
+                            </div>
+
+                            <div className="col-4">
+                                <button onClick = {this.AllSales}
+                                type="button" className="btn btn-success btn-block">
+                                    view all sales
+                                </button>
+                                
+                            </div>
+                        </div>
+                        {this.state.redirect?<Redirect to={this.state.redirectto}/>:null}
+                    </div>
+
+      </div>
         return(
             <div className="">
-                <Header startPage="/home"/>
-                <div className="">
-                    <div className="row">
-                    <SideNav/>
-                        <div className="col col-sm-10 container">
-                        
-                            <SalesGraph/>
-                        
-         
-                                        <table className="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Descriptionn</th>
-                                                    <th scope="col">Amount</th>
-                                                    <th scope="col">Quantity</th>
-                                                    <th scope="col">Date Recorded</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                            { this.state.sales.slice(0, 3).map(sales => 
-                                                <tr name={String(sales.sale_id)}>
-                                                    <td>{sales.description}</td>
-                                                    <td> GHS {sales.amount}.00</td>
-                                                    <td> {sales.quantity}</td>
-                                                    <td>{sales.date}</td>
-                                                    <td className="hidden-managers">
-                                                    <button type="button" className="btn btn-success" onClick= {() => this.editSales(sales.sale_id)}>
-                                                        Edit
-                                                    </button>
-                                                    </td>
-                                                </tr>
-                                                )
-                                            }
-                                            </tbody>
-                                      </table>
-                            
-                            <div className="row">
-                                <div className="col-4">
-                                    <button onClick = {this.onAddSales}
-                                    type="button" className="btn btn-danger btn-block">
-                                        add Sales
-                                    </button>
-                                </div>
-
-                                <div className="col-4">
-
-                                </div>
-
-                                <div className="col-4">
-                                    <button onClick = {this.AllSales}
-                                    type="button" className="btn btn-success btn-block">
-                                        view all sales
-                                    </button>
-                                    
-                                </div>
-                            </div>
-                            {this.state.redirect?<Redirect to={this.state.redirectto}/>:null}
-                        </div>
-                    </div>
-                </div>
+                  <Page main={content}/>
             </div>
         )
     }

@@ -28,37 +28,29 @@ export default class SideNav extends React.Component{
    }
     render(){
         return(
-            <div className="col-lg-2">
-                <section className ="sidenav col-lg-12 d-none d-sm-block">
-                    <ul className ="list-group list-group-flush">
-                        <li className ="list-group-item"> 
-                            
-                            <NavLink to="/home" activeClassName="selected" > Dashboard</NavLink>
-                        </li>
-                        {/* <li className="list-group-item" >
-                            <a name="budget" onClick={this.redirectTo} >Budget</a>
-                        </li> */}
-                        <li className="list-group-item" >
-                            <NavLink to="/sales" activeClassName="selected">Sales</NavLink>
-                        </li>
-                        <li className="list-group-item">
-                            <NavLink to="/expenses" activeClassName="selected" >Expenses</NavLink>
-                        </li>
-                        <li className="list-group-item" >
-                            <NavLink to="/debtors" activeClassName="selected">Debtors</NavLink>
-                        </li>
-                        <li className="list-group-item" >
-                           <NavLink to="/creditors" activeClassName="selected">Creditors</NavLink>
-                        </li>
-                        <li className="list-group-item">
-                            <NavLink to="/statement-1" activeClassName="selected">Reports</NavLink>
-                        </li>
-                        {this.props.printButton}
-                    </ul>
-
-                    
-                </section>
-                
+            <div className="sidenav pt-5">
+               <div className="sidenav-item p-2  flex-center">
+                  <NavLink to="/home" className="nav-item m-1 "  > Dashboard</NavLink>
+               </div>
+               <div className="sidenav-item p-2  flex-center">
+                  <NavLink to="/sales" className="nav-item m-1" >Sales</NavLink>
+               </div>
+               <div className="sidenav-item p-2  flex-center">
+                  <NavLink to="/expenses" className="nav-item m-1"  >Expenses</NavLink>
+               </div>
+               <div className="sidenav-item p-2  flex-center">
+                  <NavLink to="/debtors" className="nav-item m-1" >Debtors</NavLink>
+               </div>
+               <div className="sidenav-item p-2  flex-center">
+                  <NavLink to="/creditors" className="nav-item m-1" >Creditors</NavLink>
+               </div>
+               <div className="sidenav-item p-2  flex-center">
+               <NavLink to="/statement-1"className="nav-item m-1" >Reports</NavLink>
+               </div>
+               <div className="sidenav-item p-2  flex-center">
+               <NavLink to="/"className="nav-item m-1  logout-button" >Logout</NavLink>      
+               </div>
+                                
                 {this.state.redirect?<Redirect to= {this.state.nextPage}/>:null}
             </div>
                         

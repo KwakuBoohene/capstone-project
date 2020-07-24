@@ -1,8 +1,7 @@
 import React from "react";
 import {Redirect,Link} from "react-router-dom";
-import Header from "../../components/header";
-import SideNav from "../../components/sidenav";
-
+import Page from "./page";
+import image from "../../images/icons/discount.svg";
 
 export default class Dashboard extends React.Component{
     constructor(props) {
@@ -14,74 +13,87 @@ export default class Dashboard extends React.Component{
        this.setState({redirect : true,nextpage: e.target.name,})
    }
     render(){
-        return(
-            <div>   
-                <Header startPage="/home" />
-                <div className="">
-                    <div className="row">
-                        <SideNav/>
-                            <section className="homepage-main col col-sm-10 container"><br/>
-                            <h5>Welcome {sessionStorage.getItem('fname')}</h5><br/>
-                            <div className="row">
-                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Money made/Income</h5>
-                                        <h6 className="card-subtitle mb-2 text-muted">See how much money has come in
-                                        in the last 30 days</h6>
-                                        <br/><br/><br/>
-                                        <Link type="button" name="sales" className="btn btn-success" to="/sales" >
-                                            View info
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Expenses</h5>
-                                        <h6 className="card-subtitle mb-2 text-muted">See what you have spent on
-                                        in the last 30 days</h6>
-                                        <br/><br/><br/>
-                                        <Link className="btn btn-success" type="button" to="/expenses" name="expenses" >
-                                        View info
-                                        </Link>
-                                    </div>
-                                </div>
 
-                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Creditors</h5>
-                                        <h6 className="card-subtitle mb-2 text-muted">See who you owe or bought from on credit</h6>
-                                        <br/><br/><br/>
-                                        <Link className="btn btn-success" type="button" to="/creditors" name="creditors" >
-                                        View info
-                                        </Link>
-                                    </div>
-                                </div>
+      let content = 
+      <div className="dashboard-main  pl-3 pr-3">
+         <div className="page-heading ">
+            <p className="username">Welcome {sessionStorage.getItem('fname')}</p>
+            <p className="">General Report</p>
+         </div>
 
-                                <div className="card col-xs-12 col-sm-5 col-lg-5" id="homepage-grid-item">
-                                    <div className="card-body">
-                                        <h5 className="card-title">Debtors</h5>
-                                        <h6 className="card-subtitle mb-2 text-muted">See who owes you or bought from you on credit</h6>
-                                        <br/><br/><br/>
-                                        <Link className="btn btn-success" type="button" to="/debtors" name="debtors">
-                                        View info
-                                        </Link>
-                                    </div>
-                                </div>
+         <div className="dashboard">
+            <div className="db-summaries">
+               <div className="sum-card">
+                  <div className="sum-icon m-1">
+                     <img src={image} alt=""  srcset=""/>
+                  </div>
 
+                  <div className="sum-figure m-1">
+                     <p className="">4500</p>
+                  </div>
 
+                  <div className="sum-descrip m-1">
+                     <p className="">Item sales</p>
+                  </div>
+               </div>
 
+               <div className="sum-card ">
+                  <div className="sum-icon m-1">
+                     <img src={image} alt=""  srcset=""/>
+                  </div>
 
-                            </div>
-                            
+                  <div className="sum-figure m-1">
+                     <p className="">4500</p>
+                  </div>
 
-                            
-                            
-                        </section>
-                    </div>
-                </div>
-                
-                {this.state.redirect?<Redirect to={"./"+this.state.nextpage}/>:null}
+                  <div className="sum-descrip m-1">
+                     <p className="">Item sales</p>
+                  </div>
+               </div>
+               
+               <div className="sum-card ">
+                  <div className="sum-icon m-1">
+                     <img src={image} alt=""  srcset=""/>
+                  </div>
+
+                  <div className="sum-figure m-1">
+                     <p className="">4500</p>
+                  </div>
+
+                  <div className="sum-descrip m-1">
+                     <p className="">Item sales</p>
+                  </div>
+               </div>
+               
+               <div className="sum-card ">
+                  <div className="sum-icon m-1">
+                     <img src={image} alt=""  srcset=""/>
+                  </div>
+
+                  <div className="sum-figure m-1">
+                     <p className="">4500</p>
+                  </div>
+
+                  <div className="sum-descrip m-1">
+                     <p className="">Item sales</p>
+                  </div>
+               </div>
+
             </div>
+         
+            <div className="sales-details">
+               
+            </div>
+         </div>
+
+         .
+
+      </div>
+        return(
+         <div className="body">    
+            <Page main={content}/>
+               {this.state.redirect?<Redirect to={"./"+this.state.nextpage}/>:null}
+         </div>
         )
     }
 }

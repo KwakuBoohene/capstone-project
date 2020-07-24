@@ -133,7 +133,7 @@ modalClose = e => {
    <div className="body signup-page">
          <Header startPage="/"/>
 
-         <div className="flex-center start-space">
+         <div className="flex-center page">
          <form action="" className="signup-form p-5">
             
             <div className="signup-header">
@@ -142,17 +142,42 @@ modalClose = e => {
 
             <div className="username">
                <div className="form-label-group mr-2">
-                  <label for="inputUserame">First Name</label><br/>
+                  <label htmlFor="inputUserame">First Name</label><br/>
                   <input name="fname" type="text" id="inputUserame" className="form-control" placeholder="First Name"
-                  value={this.state.fname} onChange = {this.Change} required autofocus/>            
+                  value={this.state.fname} onChange = {this.Change} required autoFocus/>            
                </div>
 
                <div className="form-label-group">
-                  <label for="inputSurname">Surname</label><br/>
+                  <label htmlFor="inputSurname">Surname</label><br/>
                   <input name="lname" type="text" id="inputSurname" className="form-control" placeholder="Surname"
-                  value={this.state.lname} onChange = {this.Change} required autofocus/>
+                  value={this.state.lname} onChange = {this.Change} required autoFocus/>
                </div>
             </div>
+
+            <div className="form-label-group">
+               <label htmlFor="inputEmail">Email address</label><br/>
+               <input type="email" id="inputEmail" className="form-control" placeholder="Email address"
+               value={this.state.email} onChange = {this.Change} required name="email"/>
+               
+            </div>
+
+            <hr/>
+
+            <div className="form-label-group">
+            <label htmlFor="inputPassword">Password</label> <br/>   
+               <input type="password" id="inputPassword" className="form-control" placeholder="Password"
+               value={this.state.password} onChange = {this.Change} name="password" required/>
+            </div>
+
+            <div className="form-label-group">
+            <label htmlFor="inputConfirmPassword">Confirm password</label> <br/>
+               <input type="password" id="inputConfirmPassword" className="form-control" placeholder="Password"
+               value={this.state.rpassword} onChange = {this.Change} name="rpassword" required/>
+               
+            </div>
+
+            <button className="btn btn-lg btn-success btn-block text-uppercase" type="button" onClick= {this.onSignUpClicked}>Register</button>
+
 
             
             
@@ -175,21 +200,21 @@ modalClose = e => {
                                 <form className="form-signin">
                                 <div className="form-label-group">
                                     <input name="fname" type="text" id="inputUserame" className="form-control" placeholder="First Name"
-                                    value={this.state.fname} onChange = {this.Change} required autofocus/>
-                                    <label for="inputUserame">First Name</label>
+                                    value={this.state.fname} onChange = {this.Change} required autoFocus/>
+                                    <label htmlFor="inputUserame">First Name</label>
                                 </div>
 
                                 <div className="form-label-group">
                                     <input name="lname" type="text" id="inputSurname" className="form-control" placeholder="Surname"
-                                    value={this.state.lname} onChange = {this.Change} required autofocus/>
-                                    <label for="inputSurname">Surname</label>
+                                    value={this.state.lname} onChange = {this.Change} required autoFocus/>
+                                    <label htmlFor="inputSurname">Surname</label>
                                 </div>
 
 
                                 <div className="form-label-group">
                                     <input type="email" id="inputEmail" className="form-control" placeholder="Email address"
                                     value={this.state.email} onChange = {this.Change} required name="email"/>
-                                    <label for="inputEmail">Email address</label>
+                                    <label htmlFor="inputEmail">Email address</label>
                                 </div>
                                 
                                 <hr/>
@@ -197,13 +222,13 @@ modalClose = e => {
                                 <div className="form-label-group">
                                     <input type="password" id="inputPassword" className="form-control" placeholder="Password"
                                     value={this.state.password} onChange = {this.Change} name="password" required/>
-                                    <label for="inputPassword">Password</label>
+                                    <label htmlFor="inputPassword">Password</label>
                                 </div>
                                 
                                 <div className="form-label-group">
                                     <input type="password" id="inputConfirmPassword" className="form-control" placeholder="Password"
                                     value={this.state.rpassword} onChange = {this.Change} name="rpassword" required/>
-                                    <label for="inputConfirmPassword">Confirm password</label>
+                                    <label htmlFor="inputConfirmPassword">Confirm password</label>
                                 </div>
 
                                 <button className="btn btn-lg btn-success btn-block text-uppercase" type="button" onClick= {this.onSignUpClicked}>Register</button>

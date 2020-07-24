@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import Header from "../../components/header";
 
 export default class LandingPage extends React.Component{
     render(){
@@ -7,27 +8,9 @@ export default class LandingPage extends React.Component{
         return(
 <div className="body">
 
-   <section className="header">
-      <div className="header-icon ">
-         <div className="option m-3">
-            <Link className="header-text" to="/">MYACCOUNTS</Link>
-         </div>
-      </div>
-      
-      <div className="header-section">
-         <div className="option m-3">
-            <Link className="header-login" to="/login">Log in</Link>
-         </div>
-      </div>
+  <Header/>
 
-      <div className="header-section">
-         <div className="option m-3">
-            <Link className="header-signup" to="/signup">Sign Up</Link>
-         </div>
-      </div>
-   </section>
-
-   <section className="landing-middle start-space">
+   <section className="landing-middle page">
          
          <div className="middle-text-large flex-center ">
             <h2 className="">
