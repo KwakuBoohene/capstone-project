@@ -2,6 +2,7 @@ import React from "react";
 import {Redirect,Link} from "react-router-dom";
 import Modal from "../../components/modal.js";
 import axios from 'axios';
+import Header from "../../components/header.js"
 
 export default class LoginPage extends React.Component{
         constructor(props){
@@ -11,6 +12,7 @@ export default class LoginPage extends React.Component{
             password: '',
             redirect: false,
             message: "invalid input details",
+            login: false,
 
         };
         this.onLogin = this.onLogin.bind(this);
@@ -46,7 +48,9 @@ axios
         sessionStorage.setItem('userid',userid)
         sessionStorage.setItem('fname',fname)
         // alert("Welcome"+fname)
+        this.props.handleLogin();
           this.setState({message:"Welcome"+" "+fname +" "+ "Loading.."});
+          
           this.modalOpen();
          setTimeout(
     function() {
@@ -122,54 +126,41 @@ modalClose = e => {
     render(){
     
         return(
-            <div id="main" onClick={this.modalClose}>
-                <section className="header">
-                <div className="container-fluid">
-                    <div className="row  justify-content-md-center">
-                        <div className="header-icon col-sm-2">
-                            <h2 className="text-center"><Link className="header-icon" to="/">MYACCOUNTS</Link> </h2>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div className="body signup-page" onClick={this.modalClose}>
+                <Header/>
 
-                <div className="container-fluid">
-                    <div className="row no-gutter">
-                        <div className="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-                        <div className="col-md-8 col-lg-6">
-                        <div className="login d-flex align-items-center py-5">
-                            <div className="container">
-                            <div className="row">
-                                <div className="col-md-9 col-lg-8 mx-auto">
-                                <h3 className="login-heading mb-4">Welcome back!</h3>
-                                <form>
-                                    <div className="form-label-group">
-                                    <input type="email" id="email" className="form-control" placeholder="Email address" required autoFocus name="email" onKeyUp={this.enterLogin} onChange ={this.Change}/>
-                                    <label htmlFor="email">Email address</label>
-                                    </div>
+                <div className="flex-center page">
+               <form action="" className="signup-form p-5">
+                  
+                  <div className="signup-header">
+                     <h5 className="">Create An Account</h5>
+                  </div>
 
-                                    <div className="form-label-group">
-                                    <input type="password" id="password" className="form-control" placeholder="Password" name= "password" onKeyUp={this.enterLogin} onChange={this.Change} required/>
-                                    <label htmlFor="password">Password</label>
-                                    </div>
+                  <div className="form-label-group">
+                     <label htmlFor="email">Email address</label><br/>
+                     <input type="email" id="email" className="form-control mb-5" placeholder="Email address"
+                     required autoFocus name="email" onKeyUp={this.enterLogin} onChange ={this.Change}/>
+                  </div>
 
-                                    <button type="button" className="btn btn-lg btn-success btn-block btn-login text-uppercase font-weight-bold mb-2" onClick={this.onLogin}>
-                                    Sign in</button>
-                                </form>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+               <div className="form-label-group">
+                  <label htmlFor="password">Password</label><br/>
+                  
+                  <input type="password" id="password" className="form-control mb-4" placeholder="Password"
+                  name= "password" onKeyUp={this.enterLogin} onChange={this.Change} required/>               
+               </div>
 
-                                <Modal message={this.state.message}/>
-                
+               <button type="button" className="mb-2" onClick={this.onLogin}>
+                  Sign in
+               </button>
 
-            {this.state.redirect?<Redirect to="./home"/>:null}
-                </div>
+                  
+                  
 
-            </div>
+               </form>
+               <Modal message={this.state.message}/>
+               {this.state.redirect?<Redirect to="./home"/>:null}
+         </div>
+      </div>
 
             
         )

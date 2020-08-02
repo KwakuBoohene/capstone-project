@@ -1,7 +1,6 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
-import Header from "../../components/header";
-import SideNav from "../../components/sidenav";
+import Page from "../general/page";
 import axios from 'axios';
 
 export default class EditDebtor extends React.Component{
@@ -119,14 +118,8 @@ export default class EditDebtor extends React.Component{
     };
 
     render(){
-        return(
-            <div className="">
-                <Header/>
-                <div className="">
-                    <div className="row">
-                        <SideNav/>
-
-                        <div className="col col-sm-10 container">
+       const content = <div className="">
+              <div className="col col-sm-10 container">
                             <div className="row">
                                 <div className="col col-sm-9">
                                     <h3>Please input the details of your Debtor here</h3>
@@ -197,10 +190,14 @@ export default class EditDebtor extends React.Component{
 
                             
                         </div>
-                    </div>
+                    
+       </div>
+        return(
+            <div className="">
+               <Page main={content}/>
+                    
 
-                </div>
-                {this.state.redirect?<Redirect to="./debtors"/>:null}
+                              {this.state.redirect?<Redirect to="./debtors"/>:null}
                 
             </div>
         )

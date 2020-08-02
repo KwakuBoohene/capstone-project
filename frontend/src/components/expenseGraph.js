@@ -7,7 +7,7 @@ export default class ExpenseGraph extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            id: Number(localStorage.getItem('userid')),
+            id: this.props.id,
             expenses: [],
         }
     }
@@ -67,7 +67,7 @@ export default class ExpenseGraph extends React.Component{
             {
             label: 'Amount in Cedis',
             lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
+            backgroundColor: '#00695c',
             borderColor: 'rgba(75,192,192,1)',
             pointBorderColor: 'rgba(75,192,192,1)',
   
