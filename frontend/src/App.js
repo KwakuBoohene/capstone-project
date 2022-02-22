@@ -1,6 +1,6 @@
 import "./css/style.css";
 
-import Routes from "./Routes";
+import Routes from "./routes";
 
 export default Routes;
 
